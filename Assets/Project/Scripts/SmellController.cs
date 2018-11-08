@@ -11,7 +11,17 @@ public class SmellController : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
-		Debug.Log("Feel Smell!");
-		ps.Stop();
+		if(ps.isPlaying) {
+			ps.Stop();
+			Debug.Log("Feel Smell!");
+			StartCoroutine(DisableInSeconds(2));
+		}
+	}
+
+	IEnumerator DisableInSeconds (int seconds) {
+		while(true) {
+			yield return new WaitForSeconds(seconds);
+			gameObject.SetActive(false);
+		}
 	}
 }

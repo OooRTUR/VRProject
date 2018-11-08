@@ -104,6 +104,8 @@ namespace VRTK
         [Tooltip("Key used to switch between hair touch mode.")]
         public KeyCode hairTouchModifier = KeyCode.H;
 
+		[HideInInspector]public bool isMoveble = true;
+
         #endregion
         #region Private fields
 
@@ -383,27 +385,29 @@ namespace VRTK
 
         private void UpdatePosition()
         {
-            float moveMod = Time.deltaTime * playerMoveMultiplier * sprintMultiplier;
-            if (Input.GetKey(moveForward))
-            {
-				c_controller.Move(transform.forward * moveMod);
-               // transform.Translate(transform.forward * moveMod, Space.World);
-            }
-            else if (Input.GetKey(moveBackward))
-            {
-				c_controller.Move(-transform.forward * moveMod);
-                //transform.Translate(-transform.forward * moveMod, Space.World);
-            }
-            if (Input.GetKey(moveLeft))
-            {
-				c_controller.Move(-transform.right * moveMod);
-                //transform.Translate(-transform.right * moveMod, Space.World);
-            }
-            else if (Input.GetKey(moveRight))
-            {
-				c_controller.Move(transform.right * moveMod);
-                //transform.Translate(transform.right * moveMod, Space.World);
-            }
+			if (isMoveble) {
+	            float moveMod = Time.deltaTime * playerMoveMultiplier * sprintMultiplier;
+	            if (Input.GetKey(moveForward))
+	            {
+					c_controller.Move(transform.forward * moveMod);
+	               // transform.Translate(transform.forward * moveMod, Space.World);
+	            }
+	            else if (Input.GetKey(moveBackward))
+	            {
+					c_controller.Move(-transform.forward * moveMod);
+	                //transform.Translate(-transform.forward * moveMod, Space.World);
+	            }
+	            if (Input.GetKey(moveLeft))
+	            {
+					c_controller.Move(-transform.right * moveMod);
+	                //transform.Translate(-transform.right * moveMod, Space.World);
+	            }
+	            else if (Input.GetKey(moveRight))
+	            {
+					c_controller.Move(transform.right * moveMod);
+	                //transform.Translate(transform.right * moveMod, Space.World);
+	            }
+			}
         }
 
         private void SetHand()
