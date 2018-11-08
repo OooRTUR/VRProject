@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MouseLocator : MonoBehaviour {
 
+	[SerializeField] int minTime;
+	[SerializeField] int maxTime;
 	Transform mouseTrans;
 	AudioSource s_source;
 
@@ -24,7 +26,8 @@ public class MouseLocator : MonoBehaviour {
 	IEnumerator HearMouse () {
 		while (true) {
 			FindMouse();
-			yield return new WaitForSeconds(2);
+			int timeBetween = Random.Range(minTime,maxTime);
+			yield return new WaitForSeconds(timeBetween);
 		}
 	}
 
