@@ -12,7 +12,8 @@ namespace VRTK
     /// <remarks>
     /// Use the mouse and keyboard to move around both play area and hands and interacting with objects without the need of a hmd or VR controls.
     /// </remarks>
-    public class SDK_InputSimulator : MonoBehaviour
+	[RequireComponent(typeof(CharacterController))]
+	public class SDK_InputSimulator : MonoBehaviour
     {
         /// <summary>
         /// Mouse input mode types
@@ -120,6 +121,7 @@ namespace VRTK
         private static bool destroyed = false;
         private float sprintMultiplier = 1;
         private GameObject crossHairPanel;
+		private CharacterController c_controller;
 
         #endregion
 
@@ -143,6 +145,7 @@ namespace VRTK
         private void Awake()
         {
             VRTK_SDKManager.instance.AddBehaviourToToggleOnLoadedSetupChange(this);
+			c_controller = GetComponent<CharacterController>();
         }
 
         private void OnEnable()
@@ -383,19 +386,23 @@ namespace VRTK
             float moveMod = Time.deltaTime * playerMoveMultiplier * sprintMultiplier;
             if (Input.GetKey(moveForward))
             {
-                transform.Translate(transform.forward * moveMod, Space.World);
+				c_controller.Move(transform.forward * moveMod);
+               // transform.Translate(transform.forward * moveMod, Space.World);
             }
             else if (Input.GetKey(moveBackward))
             {
-                transform.Translate(-transform.forward * moveMod, Space.World);
+				c_controller.Move(-transform.forward * moveMod);
+                //transform.Translate(-transform.forward * moveMod, Space.World);
             }
             if (Input.GetKey(moveLeft))
             {
-                transform.Translate(-transform.right * moveMod, Space.World);
+				c_controller.Move(-transform.right * moveMod);
+                //transform.Translate(-transform.right * moveMod, Space.World);
             }
             else if (Input.GetKey(moveRight))
             {
-                transform.Translate(transform.right * moveMod, Space.World);
+				c_controller.Move(transform.right * moveMod);
+                //transform.Translate(transform.right * moveMod, Space.World);
             }
         }
 

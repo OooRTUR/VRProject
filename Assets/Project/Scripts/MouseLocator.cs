@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MouseLocator : MonoBehaviour {
-	[SerializeField] AudioClip mouseSound;
+	//[SerializeField] AudioClip mouseSound;
 	[SerializeField] int minTime;
 	[SerializeField] int maxTime;
 	Transform mouseTrans;
