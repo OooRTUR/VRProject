@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MouseLocator : MonoBehaviour {
-
+	[SerializeField] AudioClip mouseSound;
 	[SerializeField] int minTime;
 	[SerializeField] int maxTime;
 	Transform mouseTrans;
@@ -34,9 +34,14 @@ public class MouseLocator : MonoBehaviour {
 	void FindMouse () {
 		Vector3 dir = mouseTrans.position - transform.position;
 		float angle = Vector3.Angle(transform.forward, dir);
-		if (angle < 20) s_source.volume = 1;
-		else s_source.volume = 0.3f;
-		Debug.Log(angle);
+		if (angle < 20) { 
+			s_source.volume = 1;
+			Debug.Log("Hot!");
+		}
+		else {
+			s_source.volume = 0.3f;
+			Debug.Log("Cold!");
+		}
 		//s_source.Play();
 	}
 
