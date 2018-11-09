@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MoveNPCRandomly : MonoBehaviour
 {
-    public List<Transform> targetList;
     public int targetIndex = -1;
 
     public Transform target;
@@ -29,23 +28,14 @@ public class MoveNPCRandomly : MonoBehaviour
 
         createRot.speed = rotationSpeed;
         createMove.speed = moveSpeed;
-
-        
     }
 
     private void OnEnable()
     {
-        //if (targetIndex < targetList.Count-1)
-        //    targetIndex++;
-        //else
-        //    targetIndex = 0;
-        //Debug.Log("targetListIndex: "+ targetIndex);
-        //Debug.Log("создание нового направления");
-        //createRot.target = targetList[targetIndex];
-        //createMove.target = targetList[targetIndex];
 
         createMove.target = target;
         createRot.target = target;
+        createTarget.targetObject = target;
         createTarget.enabled = true;
         GetComponent<MoveNPCRandomly>().enabled = false;
     }

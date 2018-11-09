@@ -8,6 +8,8 @@ class CreateRotation : MonoBehaviour
     public Transform target;
     [HideInInspector]public float speed;
 
+    public float radius = 5.0f;
+
     Vector3 targetDir;
     Vector3 rotation;
 
@@ -27,7 +29,7 @@ class CreateRotation : MonoBehaviour
         //else
         //    modifier = 1.0f;
 
-        Debug.LogFormat("<color=red>lerp: {0} | modifier: {1}</color>", myLerp.x,modifier);
+        //Debug.LogFormat("<color=red>lerp: {0} | modifier: {1}</color>", myLerp.x,modifier);
         targetDir = target.position - transform.position;
         angle = Vector3.Angle(targetDir, transform.forward);
         
@@ -46,22 +48,22 @@ class CreateRotation : MonoBehaviour
         targetDir = target.position - transform.position;
         angle = Vector3.Angle(targetDir, transform.forward);
 
-        
+        Quaternion qRot = Quaternion.LookRotation(targetDir, Vector3.up);
+        Debug.Log("qRot: " + qRot);
 
-        //rotation = new Vector3(transform.rotation.x, angle, transform.rotation.y);
-        Debug.Log("lerp: "+myLerp+" | angle: "+angle);
+        rotation = new Vector3(transform.rotation.x, angle, transform.rotation.y);
+        //Debug.Log("lerp: "+myLerp+" | angle: "+angle);
         if (angle > 5.0f) angleReached = false;
         else angleReached = true;
         if (!angleReached)
         {
-            Quaternion rotation = Quaternion.LookRotation(targetDir, Vector3.up);
-            //transform.Rotate(rotation * Time.deltaTime * speed);
+            transform.Rotate(rotation * Time.deltaTime * speed);
         }
         else
         {
             Debug.Log("Угол вращения достигнут");
             angleReached = true;
-            //GetComponent<CreateMove>().enabled = true;
+            GetComponent<CreateMove>().enabled = true;
             GetComponent<CreateRotation>().enabled = false;
         }
     }

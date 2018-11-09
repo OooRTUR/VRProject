@@ -8,7 +8,7 @@ public class CreateTarget : MonoBehaviour {
 
     public Transform targetObject;
 
-    float radius = 10.0f;
+    float radius = 5.0f;
 
     private void Awake()
     {
