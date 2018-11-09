@@ -627,6 +627,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6812ae4828b0c664981ed576e2091be3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 59734031}
+  rotationSpeed: 3.21
+  moveSpeed: 9.11
 --- !u!114 &337140482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -640,19 +643,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 59734031}
   speed: 6.07
+  angleReached: 0
 --- !u!114 &337140483
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 337140476}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 027ce1acc695f7244bc4bc58ab16fcec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 59734031}
   speed: 14.47
+  destinationReached: 0
 --- !u!1 &385118631 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1538727058887424, guid: be540b97364be0a4890e39e62ac89ed1,

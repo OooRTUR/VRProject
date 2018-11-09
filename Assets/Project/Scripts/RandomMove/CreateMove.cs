@@ -6,9 +6,9 @@ using UnityEngine;
 class CreateMove : MonoBehaviour
 {
     public Transform target;
-    public float speed;
+    [HideInInspector]public float speed;
 
-    bool destinationReached;
+    [HideInInspector] public bool destinationReached;
 
     private void Update()
     {
@@ -24,11 +24,14 @@ class CreateMove : MonoBehaviour
             float step = speed * Time.deltaTime;
             // Move our position a step closer to the target.
             transform.position = Vector3.MoveTowards(transform.position, target.position, step);
-            Debug.Log("Object is moving | position: " + transform.position + "target position: " + target.position);
+            //Debug.Log("Object is moving | position: " + transform.position + "target position: " + target.position);
         }
         else
         {
             Debug.Log("Destination reached");
+            GetComponent<MoveNPCRandomly>().destinationReached = true;
+            GetComponent<MoveNPCRandomly>().enabled = true;
+            GetComponent<CreateMove>().enabled = false;
         }
     }
 }
