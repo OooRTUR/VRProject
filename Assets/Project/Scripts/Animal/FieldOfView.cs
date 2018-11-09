@@ -10,7 +10,7 @@ public class FieldOfView : MonoBehaviour {
 	public LayerMask targetMask;
 	public LayerMask obstacleMask;
 
-	public List<Transform> visibleTargets = new List<Transform>();
+	[HideInInspector]public List<Transform> visibleTargets = new List<Transform>();
 
 
 	void Awake () {
