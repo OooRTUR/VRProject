@@ -28,7 +28,7 @@ class CreateMove : MonoBehaviour
         }
         else
         {
-            Debug.Log("Destination reached");
+            //Debug.Log("Destination reached");
             GetComponent<MoveNPCRandomly>().destinationReached = true;
             GetComponent<MoveNPCRandomly>().enabled = true;
             GetComponent<CreateMove>().enabled = false;

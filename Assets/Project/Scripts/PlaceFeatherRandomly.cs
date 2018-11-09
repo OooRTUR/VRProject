@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlaceFeatherRandomly : MonoBehaviour {
 
+    
+
     [SerializeField] float modifier = 0.7f;
     [SerializeField] GameObject traectoryPointObj;
     [SerializeField] float angle;
@@ -16,10 +18,6 @@ public class PlaceFeatherRandomly : MonoBehaviour {
         transform.Rotate(Vector3.up * 300.0f, Space.Self);
         //ListSetter.SetList();
     }
-    // Use this for initialization
-    void Start () {
-		
-	}
     
     void SetPointsToGameField()
     {
