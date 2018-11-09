@@ -11,7 +11,9 @@ public class PlaceObjectsRandomly : MonoBehaviour {
     //not serialized...
     private void Awake()
     {
-        SetSpawnList();
+        //SetSpawnList();
+        if (spawnContainer == null) spawnContainer = transform;
+        ListSetter.SetList(ref spawns, spawnContainer);
     }
     void Start () {
         PlaceObjects();
@@ -21,7 +23,7 @@ public class PlaceObjectsRandomly : MonoBehaviour {
         for(int i=0; i<spawns.Count; i++)
         {
             int isPlace = Random.Range(0, 2);
-            Debug.Log(isPlace);
+            //Debug.Log(isPlace);
             if (isPlace == 1)
             {
                 GameObject tempGameObj = Instantiate(objectToPlace, spawns[i].transform, false);
