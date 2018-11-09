@@ -14,13 +14,13 @@ public class SmellController : MonoBehaviour {
 		if(ps.isPlaying) {
 			ps.Stop();
 			Debug.Log("Feel Smell!");
-			StartCoroutine(DisableInSeconds(2));
+			StartCoroutine(DisableInSeconds(5));
 		}
 	}
 
-	IEnumerator DisableInSeconds (int seconds) {
+	IEnumerator DisableInSeconds (int delay) {
 		while(true) {
-			yield return new WaitForSeconds(seconds);
+			yield return new WaitForSeconds(delay);
 			gameObject.SetActive(false);
 		}
 	}

@@ -32,9 +32,8 @@ public class MouseLocator : MonoBehaviour {
 	}
 
 	void FindMouse () {
-		Vector3 dir = mouseTrans.position - transform.position;
-		float angle = Vector3.Angle(transform.forward, dir);
-		if (angle < 20) { 
+		Vector3 dir = (mouseTrans.position - transform.position).normalized;
+		if (Vector3.Angle(transform.forward, dir) < 20) { 
 			s_source.volume = 1;
 			Debug.Log("Hot!");
 		}
