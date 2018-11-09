@@ -21,7 +21,7 @@ public class PlaceObjDirectlyToPlayer : MonoBehaviour
     private void Awake()
     {
         Vector3 vec3 = targetPlayer.position - transform.position;
-        Debug.Log("vec3"+vec3);
+        //Debug.Log("vec3"+vec3);
         StartCoroutine(CreateMathGraph());
     }
 
@@ -61,7 +61,7 @@ public class PlaceObjDirectlyToPlayer : MonoBehaviour
             }
 
             float dist = Vector3.Distance(targetPlayer.position, targetNPC.position);
-            print("Distance to other: " + dist+"i: "+i);
+            //print("Distance to other: " + dist+"i: "+i);
             if (dist <= 65) break;
             else yield return null;
         }

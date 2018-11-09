@@ -4,10 +4,26 @@ using UnityEngine;
 
 public class test : MonoBehaviour {
 
+    public Transform target;
+    float angle;
 	// Use this for initialization
 	void Start () {
-        transform.position = Vector3.Cross(transform.position,Vector3.up);
-	}
+        //transform.position = Vector3.Cross(transform.position,Vector3.up);
+        Debug.Log("rot: " + transform.rotation.eulerAngles + "locRot: " + transform.localRotation.eulerAngles);
+        //Quaternion rotation = Quaternion.Euler(0, 90, 0);
+        //transform.rotation = rotation;
+        //Debug.Log("rot: " + transform.rotation.eulerAngles + "locRot: " + transform.localRotation.eulerAngles);
+
+        Vector3 targetDir = target.position - transform.position;
+        angle = Vector3.Angle(targetDir, transform.forward);
+        var rotation = new Vector3(transform.rotation.x, angle, transform.rotation.y);
+        transform.Rotate(rotation);
+        Debug.Log(angle);
+
+        targetDir = target.position - transform.position;
+        angle = Vector3.Angle(targetDir, transform.forward);
+        Debug.Log(angle);
+    }
 
     Vector3 GetNormal(Vector3 a, Vector3 b, Vector3 c)
     {
