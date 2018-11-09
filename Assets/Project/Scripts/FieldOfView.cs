@@ -7,9 +7,11 @@ public class FieldOfView : MonoBehaviour {
 	public float viewRadius;
 	[Range(0, 360)]
 	public float viewAngle;
-	public LayerMask targetMask, obstacleMask;
+	public LayerMask targetMask;
+	public LayerMask obstacleMask;
 
 	public List<Transform> visibleTargets = new List<Transform>();
+
 
 	void Awake () {
 		StartCoroutine(FindTargetsWithDelay(0.8f));
@@ -23,15 +25,20 @@ public class FieldOfView : MonoBehaviour {
 	}
 
 	void FindVisibleTargets () {
-		visibleTargets.Clear();
+		//visibleTargets.Clear();
 		Collider[] targetsInView = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
 
+		if (targetsInView.Length == 0) visibleTargets.Clear();
 		for (int i = 0; i < targetsInView.Length; i++) {
 			Transform target = targetsInView[i].transform;
 			Vector3 dir = (target.position - transform.position).normalized;
-			if (Vector3.Angle(transform.forward, dir) < viewAngle / 2) {
-				float dist = Vector3.Distance(transform.position,target.position);
-				if (!Physics.Raycast(transform.position,dir,dist,obstacleMask)) visibleTargets.Add(target);
+			CharacterController c_controller = targetsInView[i].GetComponent<CharacterController>();
+			float dist = Vector3.Distance(transform.position,target.position);
+			if (Vector3.Angle(transform.forward, dir) < viewAngle / 2 || c_controller.velocity.magnitude > 6f) {
+				if (!Physics.Raycast(transform.position,dir,dist,obstacleMask))
+					visibleTargets.Add(target);
+				else
+					visibleTargets.Remove(target);
 			}
 		}
 	}
