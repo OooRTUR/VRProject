@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class FieldOfView : MonoBehaviour {
 
 	public float viewRadius;
@@ -11,10 +10,16 @@ public class FieldOfView : MonoBehaviour {
 	public LayerMask obstacleMask;
 
 	[HideInInspector]public List<Transform> visibleTargets = new List<Transform>();
+	MouseAI animalAI;
 
 
 	void Awake () {
+		animalAI = GetComponent<MouseAI>();
 		StartCoroutine(FindTargetsWithDelay(0.8f));
+	}
+
+	void Update () {
+		if(visibleTargets.Count > 0) animalAI.FindSaveZone(visibleTargets[0].position);
 	}
 
 	IEnumerator FindTargetsWithDelay (float delay) {

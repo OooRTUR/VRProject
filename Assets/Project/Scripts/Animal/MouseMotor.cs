@@ -22,14 +22,27 @@ public class MouseMotor : MonoBehaviour {
 		StartCoroutine("Walking");
 	}
 
-	void Move (Vector3 waypoint, float speed) {
+	public void SawPredator (Vector3 runTo) {
+		cond = Condition.Run;
+		StopCoroutine("Walking");
+		Move(runTo);
+		Debug.Log("Бегу к норе");
+	}
+
+	public void SawPredator () {
+		cond = Condition.Run;
+		StopCoroutine("Walking");
+		Debug.Log("Не знаю куда бежать");
+	}
+
+	void Move (Vector3 waypoint) {
 		agent.speed = cond == Condition.Walk ? walkSpeed : runSpeed;
 		agent.SetDestination(waypoint);
 	}
 
 	IEnumerator Walking () {
 		while(cond == Condition.Walk) {
-			Move(walkArea.GetWalkPoint(), runSpeed);
+			Move(walkArea.GetWalkPoint());
 			//while (agent.pathStatus == NavMeshPathStatus.PathComplete) yield return null;
 			float randomSec = Random.Range(3,6);
 			yield return new WaitForSeconds(randomSec);
