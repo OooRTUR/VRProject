@@ -9,13 +9,14 @@ public class Vec3Math : MonoBehaviour {
     [SerializeField] float rad = 1.0f;
     [SerializeField] float angle = 45.0f;
     [SerializeField] float dim = 0.1f;
-    int graphLength = 30;
+    int graphLength = 60;
 
     DrawCircle drawCircle1;
     Vector3 vec3;
     Vector3 yVec3;
     Vector3 normVec3;
     Vector3 bis;
+    Vector3 pointZero;
 
     Vector3 vec_1a;
     Vector3 vec_2a;
@@ -25,16 +26,16 @@ public class Vec3Math : MonoBehaviour {
 
     void Start () {
         drawCircle1 = new DrawCircle(GetComponent<LineRenderer>());
-
+        
         
         yVec3 = new Vector3(
             0.0f,
             Vector3.up.y * sqrt2,
             0.0f);
-        bis = new Vector3(0.5f,0.5f,0.0f);
+        
         //normVec3 = vec3 + yVec3;
-        vec_1a = CalcVec3(1,1);
-        vec_2a =  CalcVec3(2,1);
+        //vec_1a = CalcVec3(1,1);
+        //vec_2a =  CalcVec3(2,1);
 
         vec3points = new Vector3[graphLength];
         vec3points2 = new Vector3[graphLength];
@@ -45,13 +46,21 @@ public class Vec3Math : MonoBehaviour {
 	void Update () {
         drawCircle1.Draw();
 
+        pointZero = transform.position;
+
         vec3 = new Vector3(
             Vector3.right.x * rad * Mathf.Cos(Mathf.Deg2Rad * angle),
-            Vector3.up.y * rad * Mathf.Sin(Mathf.Deg2Rad * angle),
-            0.0f);
+            0.0f,
+            Vector3.forward.z * rad * Mathf.Sin(Mathf.Deg2Rad * angle));
+
+        bis = new Vector3(
+            1.0f * Mathf.Cos(Mathf.Deg2Rad * 45.0f),
+            0.0f,
+            1.0f * Mathf.Sin(Mathf.Deg2Rad * 45.0f)
+            );
 
         Debug.DrawLine(Vector3.zero, Vector3.right, Color.red); // x axis
-        Debug.DrawLine(Vector3.zero, Vector3.up, Color.green); // y axis
+        Debug.DrawLine(Vector3.zero, Vector3.forward, Color.blue); // z axis
         Debug.DrawLine(Vector3.zero, bis, Color.yellow);
 
         CalcGraph();
@@ -80,15 +89,12 @@ public class Vec3Math : MonoBehaviour {
     {
         for(int i=0; i < graphLength; i++)
         {
-            vec3points[i] = CalcVec3(i, 1);
-        }
-        for (int i = 0; i < graphLength; i++)
-        {
-            vec3points2[i] = CalcVec3(i, -1);
+            float dim = Mathf.Sin(Mathf.Rad2Deg * i);
+            vec3points[i] = CalcVec3(i, 1, dim);
         }
     }
 
-    Vector3 CalcVec3(float radmod, float modifier)
+    Vector3 CalcVec3(float radmod, float modifier, float dim)
     {
         
         float radX = rad * radmod;
@@ -99,7 +105,7 @@ public class Vec3Math : MonoBehaviour {
         x = c * Mathf.Cos(Mathf.Deg2Rad*(angle) + angle_s * modifier);
         y = c * Mathf.Sin(Mathf.Deg2Rad * (angle) + angle_s * modifier);
 
-        return new Vector3(x,y,0.0f);
+        return new Vector3(x,0.0f, y);
     }
 
 }
