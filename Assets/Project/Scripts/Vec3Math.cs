@@ -20,6 +20,7 @@ public class Vec3Math : MonoBehaviour {
 
     Vector3 vec_1a;
     Vector3 vec_2a;
+    Vector3 vec_3a;
 
     Vector3[] vec3points;
     Vector3[] vec3points2;
@@ -46,42 +47,55 @@ public class Vec3Math : MonoBehaviour {
 	void Update () {
         drawCircle1.Draw();
 
-        pointZero = transform.position;
 
-        vec3 = new Vector3(
-            Vector3.right.x * rad * Mathf.Cos(Mathf.Deg2Rad * angle),
-            0.0f,
-            Vector3.forward.z * rad * Mathf.Sin(Mathf.Deg2Rad * angle));
+        
 
         bis = new Vector3(
-            1.0f * Mathf.Cos(Mathf.Deg2Rad * 45.0f),
+            transform.position.x +  1.0f * Mathf.Cos(Mathf.Deg2Rad * 45.0f),
             0.0f,
-            1.0f * Mathf.Sin(Mathf.Deg2Rad * 45.0f)
+            transform.position.z +  1.0f * Mathf.Sin(Mathf.Deg2Rad * 45.0f)
             );
 
-        Debug.DrawLine(Vector3.zero, Vector3.right, Color.red); // x axis
-        Debug.DrawLine(Vector3.zero, Vector3.forward, Color.blue); // z axis
-        Debug.DrawLine(Vector3.zero, bis, Color.yellow);
+        Debug.DrawLine(transform.position, new Vector3(transform.position.x + 1.0f,0.0f, transform.position.z), Color.red); // x axis
+        Debug.DrawLine(transform.position, new Vector3(transform.position.x,0.0f, transform.position.z+1.0f), Color.blue); // z axis
+        Debug.DrawLine(transform.position, bis, Color.yellow);
+        Debug.DrawLine(transform.position, GetVec3(2.0f),Color.cyan);
+        //Debug.DrawLine(transform.position, GetVec3(2.0f), Color.cyan);
+        //Debug.DrawLine(transform.position, GetVec3(3.0f), Color.cyan);
+        //Debug.DrawLine(transform.position, GetVec3(4.0f), Color.cyan);
+
+        //Debug.DrawLine(transform.position, vec3 * 0.0f, Color.cyan);
+
+        //vec_1a = transform.position +  CalcVec3(1,1,1);
+        //Debug.DrawLine(transform.position, vec_1a, Color.cyan);
+        //Debug.DrawLine(GetVec3(1.0f),vec_1a,Color.yellow);
+
+        //vec_2a = transform.position + CalcVec3(2, 1, 1);
+        //Debug.DrawLine(transform.position, vec_2a, Color.cyan);
+        //Debug.DrawLine(GetVec3(2.0f), vec_2a, Color.yellow);
 
         CalcGraph();
         DrawGraph();
+
         //Debug.DrawLine(Vector3.zero, vec3*4, Color.cyan);
         //Debug.DrawLine(Vector3.zero, vec_2a, Color.red);
         //Debug.DrawLine(vec3 * 1, vec_1a, Color.grey);
         //Debug.DrawLine(vec3 * 2, vec_2a, Color.grey);
         //Debug.DrawLine(vec3, yVec3, Color.yellow);
     }
-
+    Vector3 GetVec3(float mod)
+    {
+        return new  Vector3(
+            transform.position.x + mod * rad * Mathf.Cos(Mathf.Deg2Rad * angle),
+            0.0f,
+            transform.position.z + mod * rad * Mathf.Sin(Mathf.Deg2Rad * angle));
+    }
     void DrawGraph()
     {
         Debug.DrawLine(Vector3.zero, vec3*vec3points.Length, Color.red);
         for(int i=0; i <vec3points.Length; i++)
         {
-            Debug.DrawLine(vec3 * i, vec3points[i], Color.grey);
-        }
-        for (int i = 0; i < vec3points2.Length; i++)
-        {
-            Debug.DrawLine(vec3 * i, vec3points2[i], Color.grey);
+            Debug.DrawLine(GetVec3(i), vec3points[i], Color.grey);
         }
     }
 
@@ -90,7 +104,7 @@ public class Vec3Math : MonoBehaviour {
         for(int i=0; i < graphLength; i++)
         {
             float dim = Mathf.Sin(Mathf.Rad2Deg * i);
-            vec3points[i] = CalcVec3(i, 1, dim);
+            vec3points[i] = transform.position +  CalcVec3(i, 1, dim);
         }
     }
 

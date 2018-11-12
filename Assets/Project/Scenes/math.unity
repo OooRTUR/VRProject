@@ -401,6 +401,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8481d669e41a2bc488f876bb3d67e0d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rad: 0.6
-  angle: 53.34
+  rad: 1
+  angle: 45
   dim: 1.11
