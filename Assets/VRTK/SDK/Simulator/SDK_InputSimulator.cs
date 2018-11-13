@@ -12,7 +12,8 @@ namespace VRTK
     /// <remarks>
     /// Use the mouse and keyboard to move around both play area and hands and interacting with objects without the need of a hmd or VR controls.
     /// </remarks>
-    public class SDK_InputSimulator : MonoBehaviour
+	[RequireComponent(typeof(CharacterController))]
+	public class SDK_InputSimulator : MonoBehaviour
     {
         /// <summary>
         /// Mouse input mode types
@@ -103,6 +104,8 @@ namespace VRTK
         [Tooltip("Key used to switch between hair touch mode.")]
         public KeyCode hairTouchModifier = KeyCode.H;
 
+		[HideInInspector]public bool isMoveble = true;
+
         #endregion
         #region Private fields
 
@@ -120,6 +123,7 @@ namespace VRTK
         private static bool destroyed = false;
         private float sprintMultiplier = 1;
         private GameObject crossHairPanel;
+		private CharacterController c_controller;
 
         #endregion
 
@@ -143,6 +147,7 @@ namespace VRTK
         private void Awake()
         {
             VRTK_SDKManager.instance.AddBehaviourToToggleOnLoadedSetupChange(this);
+			c_controller = GetComponent<CharacterController>();
         }
 
         private void OnEnable()
@@ -380,23 +385,29 @@ namespace VRTK
 
         private void UpdatePosition()
         {
-            float moveMod = Time.deltaTime * playerMoveMultiplier * sprintMultiplier;
-            if (Input.GetKey(moveForward))
-            {
-                transform.Translate(transform.forward * moveMod, Space.World);
-            }
-            else if (Input.GetKey(moveBackward))
-            {
-                transform.Translate(-transform.forward * moveMod, Space.World);
-            }
-            if (Input.GetKey(moveLeft))
-            {
-                transform.Translate(-transform.right * moveMod, Space.World);
-            }
-            else if (Input.GetKey(moveRight))
-            {
-                transform.Translate(transform.right * moveMod, Space.World);
-            }
+			if (isMoveble) {
+	            float moveMod = Time.deltaTime * playerMoveMultiplier * sprintMultiplier;
+	            if (Input.GetKey(moveForward))
+	            {
+					c_controller.Move(transform.forward * moveMod);
+	               // transform.Translate(transform.forward * moveMod, Space.World);
+	            }
+	            else if (Input.GetKey(moveBackward))
+	            {
+					c_controller.Move(-transform.forward * moveMod);
+	                //transform.Translate(-transform.forward * moveMod, Space.World);
+	            }
+	            if (Input.GetKey(moveLeft))
+	            {
+					c_controller.Move(-transform.right * moveMod);
+	                //transform.Translate(-transform.right * moveMod, Space.World);
+	            }
+	            else if (Input.GetKey(moveRight))
+	            {
+					c_controller.Move(transform.right * moveMod);
+	                //transform.Translate(transform.right * moveMod, Space.World);
+	            }
+			}
         }
 
         private void SetHand()

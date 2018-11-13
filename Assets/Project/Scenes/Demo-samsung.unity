@@ -1923,7 +1923,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 030c0aeb0a98d8148a3a26fd29d10a91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSound: {fileID: 0}
   minTime: 2
   maxTime: 4
 --- !u!4 &867063914 stripped
