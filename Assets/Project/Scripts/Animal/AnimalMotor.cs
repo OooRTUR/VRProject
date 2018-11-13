@@ -12,7 +12,7 @@ public class AnimalMotor : MonoBehaviour {
 	AreaOfWalk walkArea;
 	FieldOfView fow;
 	AnimalType a_type;
-	public enum Condition {Walk, Run, Hidden}
+	public enum Condition {Walk, Run, Hidden, Fly}
 	public Condition cond;
 
 	void Awake () {
@@ -59,6 +59,11 @@ public class AnimalMotor : MonoBehaviour {
 				cond = Condition.Walk;
 				StartCoroutine ("Walking");
 			}
+            if(a_type.type == AnimalType.Animal.Chicken)
+            {
+                cond = Condition.Walk;
+                StartCoroutine("Walking");
+            }
 		}
 	}
 

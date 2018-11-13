@@ -20,6 +20,8 @@ public class AnimalAI : MonoBehaviour {
 			Init ("Hole");
 		if(a_type.type == AnimalType.Animal.Rabbit)
 			Init ("RabbitPoint");
+        if (a_type.type == AnimalType.Animal.Chicken)
+            Init("ChickenPoint");
 	}
 
 	void Init (string saveZoneTag) {

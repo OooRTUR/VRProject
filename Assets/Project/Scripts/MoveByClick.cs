@@ -6,16 +6,19 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class MoveByClick : MonoBehaviour {
 
+    [SerializeField]Transform target;
     [SerializeField] Camera cam;
     // serialize
     [SerializeField] NavMeshAgent agent;
-    //[SerializeField] Transform target;
+    //[SerializeField] Transform target;qw
     // not serialize
     RaycastHit m_HitInfo = new RaycastHit();
 
     // Use this for initialization
     void Start () {
         agent = GetComponent<NavMeshAgent>();
+        agent.Warp(transform.position);
+        if (target != null) agent.destination = target.position;
     }
 	
 	// Update is called once per frame
