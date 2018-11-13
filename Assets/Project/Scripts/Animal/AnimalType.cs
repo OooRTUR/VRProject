@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimalType : MonoBehaviour {
+public class AnimalType : MonoBehaviour
+{
 
-	public enum Animal {Mouse, Chicken, Rabbit}
-	public Animal type;
+    public enum Animal { Mouse, Chicken, Rabbit }
+    public Animal type;
 }

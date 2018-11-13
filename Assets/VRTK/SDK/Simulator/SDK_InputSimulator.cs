@@ -204,7 +204,7 @@ namespace VRTK
         private void Update()
         {
 			animator.SetFloat ("Speed", c_controller.velocity.magnitude);
-			Debug.Log (c_controller.velocity.magnitude);
+			//Debug.Log (c_controller.velocity.magnitude);
             if (Input.GetKeyDown(toggleControlHints))
             {
                 showControlHints = !showControlHints;

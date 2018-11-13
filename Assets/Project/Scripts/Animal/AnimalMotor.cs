@@ -31,6 +31,7 @@ public class AnimalMotor : MonoBehaviour {
 	}
 
 	void StartWalk () {
+        Debug.Log("start walking");
 		StartCoroutine ("Walking");
 	}
 

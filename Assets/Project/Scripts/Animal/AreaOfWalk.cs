@@ -7,18 +7,17 @@ public class AreaOfWalk : MonoBehaviour {
 	public float walkRadius;
 	[HideInInspector]public Transform areaCenter;
 
-	AnimalAI animalAI;
+	Poly.AnimalAI animalAI;
 
 	void Awake () {
-		animalAI = GetComponent<AnimalAI> ();
-	}
-
-	void Start () {
-		FindAreaCenter ();
-	}
+		animalAI = GetComponent<Poly.AnimalAI> ();
+        FindAreaCenter();
+    }
 
 	void FindAreaCenter () {
 		foreach (Transform trans in animalAI.saveZones) {
+            Debug.Log(trans.name);
+            Debug.Log(areaCenter);
 			if (areaCenter == null || animalAI.DistanceTo (trans.position) < animalAI.DistanceTo (areaCenter.position))
 				areaCenter = trans;
 		}

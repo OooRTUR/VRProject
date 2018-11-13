@@ -11,16 +11,25 @@ public class FieldOfView : MonoBehaviour {
 
 	[HideInInspector]public List<Transform> visibleTargets = new List<Transform>();
 
-	AnimalAI animalAI;
+	Poly.AnimalAI animalAI;
+
+    public bool isEnemySpotted { get { return visibleTargets.Count > 0 ? true : false; } }
+    float spottingTime;
 
 
 	void Awake () {
-		animalAI = GetComponent<AnimalAI>();
+		animalAI = GetComponent<Poly.AnimalAI>();
 		StartCoroutine(FindTargetsWithDelay(0.3f));
 	}
 
 	void Update () {
-		if(visibleTargets.Count > 0) animalAI.FindSaveZone(visibleTargets[0].position);
+        //Debug.Log(visibleTargets.Count);
+        spottingTime += Time.deltaTime;
+        if (isEnemySpotted)
+        {
+            animalAI.FindSaveZone(visibleTargets[0].position);
+            Debug.Log("enemy is spotted");
+        }
 	}
 
 	IEnumerator FindTargetsWithDelay (float delay) {
@@ -41,8 +50,8 @@ public class FieldOfView : MonoBehaviour {
 			CharacterController c_controller = targetsInView[i].GetComponent<CharacterController>();
 			float dist = Vector3.Distance(transform.position,target.position);
 			if (Vector3.Angle(transform.forward, dir) < viewAngle / 2 || c_controller.velocity.magnitude > 6f) {
-				if (!Physics.Raycast(transform.position,dir,dist,obstacleMask))
-					visibleTargets.Add(target);
+				if (!Physics.Raycast(transform.position,dir,dist,obstacleMask)) // && !visibleTargets.Exists(trans => trans == target) - доп проверка на всякий
+                    visibleTargets.Add(target);
 				else
 					visibleTargets.Remove(target);
 			}
