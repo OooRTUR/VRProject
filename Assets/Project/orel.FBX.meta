@@ -1,0 +1,209 @@
+fileFormatVersion: 2
+guid: 6bfe0cc98fd00cc4695e765b0fe1b134
+timeCreated: 1542093621
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: bald_eagle002
+    100002: Bone045
+    100004: Bone046
+    100006: Bone047
+    100008: Bone048
+    100010: Bone049
+    100012: Bone050
+    100014: Bone051
+    100016: Bone052
+    100018: Bone053
+    100020: Bone054
+    100022: Bone055
+    100024: Bone056
+    100026: Bone057
+    100028: Bone058
+    100030: Bone059
+    100032: Bone060
+    100034: Bone061
+    100036: Bone062
+    100038: Bone063
+    100040: Bone064
+    100042: Bone065
+    100044: Bone066
+    100046: IK Chain005
+    100048: //RootNode
+    400000: bald_eagle002
+    400002: Bone045
+    400004: Bone046
+    400006: Bone047
+    400008: Bone048
+    400010: Bone049
+    400012: Bone050
+    400014: Bone051
+    400016: Bone052
+    400018: Bone053
+    400020: Bone054
+    400022: Bone055
+    400024: Bone056
+    400026: Bone057
+    400028: Bone058
+    400030: Bone059
+    400032: Bone060
+    400034: Bone061
+    400036: Bone062
+    400038: Bone063
+    400040: Bone064
+    400042: Bone065
+    400044: Bone066
+    400046: IK Chain005
+    400048: //RootNode
+    4300000: bald_eagle002
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: bald_eagle002
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: bald_eagle002
+        weight: 1
+      - path: Bone045
+        weight: 1
+      - path: Bone045/Bone046
+        weight: 1
+      - path: Bone047
+        weight: 1
+      - path: Bone047/Bone048
+        weight: 1
+      - path: Bone049
+        weight: 1
+      - path: Bone050
+        weight: 1
+      - path: Bone050/Bone051
+        weight: 1
+      - path: Bone050/Bone051/Bone052
+        weight: 1
+      - path: Bone050/Bone051/Bone052/Bone053
+        weight: 1
+      - path: Bone050/Bone051/Bone052/Bone053/Bone054
+        weight: 1
+      - path: Bone055
+        weight: 1
+      - path: Bone055/Bone056
+        weight: 1
+      - path: Bone055/Bone056/Bone057
+        weight: 1
+      - path: Bone055/Bone056/Bone057/Bone058
+        weight: 1
+      - path: Bone055/Bone056/Bone057/Bone058/Bone059
+        weight: 1
+      - path: Bone060
+        weight: 1
+      - path: Bone060/Bone061
+        weight: 1
+      - path: Bone060/Bone061/Bone062
+        weight: 1
+      - path: Bone063
+        weight: 1
+      - path: Bone064
+        weight: 1
+      - path: Bone065
+        weight: 1
+      - path: Bone065/Bone066
+        weight: 1
+      - path: IK Chain005
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
