@@ -104,6 +104,9 @@ namespace VRTK
         [Tooltip("Key used to switch between hair touch mode.")]
         public KeyCode hairTouchModifier = KeyCode.H;
 
+		[Header("Animation")]
+		public Animator animator;
+
 		[HideInInspector]public bool isMoveble = true;
 
         #endregion
@@ -200,6 +203,8 @@ namespace VRTK
 
         private void Update()
         {
+			animator.SetFloat ("Speed", c_controller.velocity.magnitude);
+			Debug.Log (c_controller.velocity.magnitude);
             if (Input.GetKeyDown(toggleControlHints))
             {
                 showControlHints = !showControlHints;

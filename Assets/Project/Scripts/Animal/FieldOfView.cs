@@ -10,12 +10,13 @@ public class FieldOfView : MonoBehaviour {
 	public LayerMask obstacleMask;
 
 	[HideInInspector]public List<Transform> visibleTargets = new List<Transform>();
-	MouseAI animalAI;
+
+	AnimalAI animalAI;
 
 
 	void Awake () {
-		animalAI = GetComponent<MouseAI>();
-		StartCoroutine(FindTargetsWithDelay(0.8f));
+		animalAI = GetComponent<AnimalAI>();
+		StartCoroutine(FindTargetsWithDelay(0.3f));
 	}
 
 	void Update () {

@@ -8,6 +8,7 @@ public class AreaOfWalkEditor : Editor {
 	void OnSceneGUI () {
 		AreaOfWalk aow = (AreaOfWalk)target;
 		Handles.color = Color.green;
-		Handles.DrawWireArc(aow.areaCenter.position,Vector3.up,Vector3.forward, 360, aow.walkRadius);
+		if (aow.areaCenter != null)
+			Handles.DrawWireCube(aow.areaCenter.position, new Vector3(aow.walkRadius * 2, 0, aow.walkRadius * 2));
 	}
 }
