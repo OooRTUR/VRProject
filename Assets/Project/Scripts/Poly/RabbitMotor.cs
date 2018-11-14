@@ -8,19 +8,6 @@ namespace Poly
 {
     public class RabbitMotor : AnimalMotor
     {
-        protected override void Awake()
-        {
-            
-            base.Awake();
-            animalType.type = AnimalType.Animal.Rabbit;
-            ai.Init("RabbitPoint");
-        }
-        protected override void Start()
-        {
-            walkArea.FindAreaCenter();
-            base.Start();
-        }
-
         protected override IEnumerator Alarm()
         {
             float time = 0.0f;

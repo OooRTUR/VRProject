@@ -8,41 +8,31 @@ namespace Poly
 {
     public class AnimalAI : MonoBehaviour
     {
-        [HideInInspector] public Transform[] saveZones;
+        [HideInInspector] public Transform[] SaveZones { get { if (zonesManager.saveZones != null) return zonesManager.saveZones; else return null; } }
         List<Transform> variantsZones = new List<Transform>();
         Transform finalZone;
         AreaOfWalk walkArea;
         AnimalType a_type;
+        [SerializeField]ZonesManager zonesManager;
         public Transform FinalZone { get { return finalZone; } }
         protected virtual void Awake()
         {
             walkArea = GetComponent<AreaOfWalk>();
         }
-
-        public void Init(string saveZoneTag)
-        {
-            GameObject[] obj = GameObject.FindGameObjectsWithTag(saveZoneTag);
-            saveZones = new Transform[obj.Length];
-            for (int i = 0; i < saveZones.Length; i++)
-            {
-                saveZones[i] = obj[i].transform;
-                //Debug.Log(saveZoneTag +" | " + saveZones[i].name);
-            }
-        }
         public void FindSaveZone(Vector3 predatorPos)
         {
             variantsZones.Clear();
             finalZone = null;
-            foreach (Transform zone in saveZones)
+            foreach (Transform zone in SaveZones)
             {
-                if (Vector3.Angle(-DirectionTo(predatorPos), DirectionTo(zone.position)) < 90)
+                if (Vector3.Angle(-Vec3Mathf.DirectionTo(transform.position,predatorPos), Vec3Mathf.DirectionTo(transform.position,zone.position)) < 90)
                     variantsZones.Add(zone);
             }
             Transform[] variants = variantsZones.ToArray();
             if (variants.Length > 1)
                 ChooseZone(variants);
             else
-                ChooseZone(saveZones);
+                ChooseZone(SaveZones);
         }
 
         void ChooseZone(Transform[] zones)
@@ -50,27 +40,14 @@ namespace Poly
             Transform prevCenter = walkArea.areaCenter;
             foreach (Transform zone in zones)
             {
-                if (finalZone == null || DistanceTo(zone.position) < DistanceTo(finalZone.position))
+                if (finalZone == null || Vec3Mathf.DistanceTo(transform.position,zone.position) < Vec3Mathf.DistanceTo(transform.position,finalZone.position))
                 {
                     if (prevCenter != zone)
                         finalZone = zone;
                 }
             }
             //Debug.Log(finalZone);
-            //motor.SawPredator(finalZone.position);
             walkArea.areaCenter = finalZone;
-        }
-
-        Vector3 DirectionTo(Vector3 position)
-        {
-            Vector3 direction = (position - transform.position).normalized;
-            return direction;
-        }
-
-        public float DistanceTo(Vector3 position)
-        {
-            float distance = Vector3.Distance(transform.position, position);
-            return distance;
         }
     }
 }

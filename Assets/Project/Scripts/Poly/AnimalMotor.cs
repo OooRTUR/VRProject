@@ -40,6 +40,7 @@ namespace Poly {
         }
         protected virtual void Start()
         {
+            walkArea.FindAreaCenter();
             StartCoroutine("Secure");
         }
         // состояние безопасности, нормальная скорость перемещения

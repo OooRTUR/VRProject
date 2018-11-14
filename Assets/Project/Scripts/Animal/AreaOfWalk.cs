@@ -11,14 +11,13 @@ public class AreaOfWalk : MonoBehaviour {
 
 	void Awake () {
 		animalAI = GetComponent<Poly.AnimalAI> ();
-        //FindAreaCenter();
     }
 
-	public void FindAreaCenter () {
-		foreach (Transform trans in animalAI.saveZones) {
+    public void FindAreaCenter () {
+		foreach (Transform trans in animalAI.SaveZones) {
             //Debug.Log(trans.name);
             //Debug.Log(areaCenter);
-			if (areaCenter == null || animalAI.DistanceTo (trans.position) < animalAI.DistanceTo (areaCenter.position))
+			if (areaCenter == null || Vec3Mathf.DistanceTo (transform.position,trans.position) < Vec3Mathf.DistanceTo(transform.position,areaCenter.position))
 				areaCenter = trans;
 		}
 	}

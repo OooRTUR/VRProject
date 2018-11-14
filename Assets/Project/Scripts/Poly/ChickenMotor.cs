@@ -10,19 +10,6 @@ namespace Poly
     {
         [SerializeField] Transform escapePoint;
 
-        protected override void Awake()
-        {
-
-            base.Awake();
-            animalType.type = AnimalType.Animal.Rabbit;
-            ai.Init("RabbitPoint");
-        }
-        protected override void Start()
-        {
-            walkArea.FindAreaCenter();
-            base.Start();
-        }
-
         protected override IEnumerator Alarm()
         {
             float time = 0.0f;
@@ -58,6 +45,7 @@ namespace Poly
             agent.Warp(escapePoint.position);
             agent.ResetPath();
             Debug.Log("Улетаю!");
+
             yield return new WaitForSeconds(4.0f);
             agent.Warp(lastPosition);
             agent.ResetPath();
