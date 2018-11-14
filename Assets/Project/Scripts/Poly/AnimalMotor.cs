@@ -36,6 +36,7 @@ namespace Poly {
             walkArea = GetComponent<AreaOfWalk>();
             fow = GetComponent<FieldOfView>();
             ai = GetComponent<AnimalAI>();
+            
         }
         protected virtual void Start()
         {
@@ -44,6 +45,7 @@ namespace Poly {
         // состояние безопасности, нормальная скорость перемещения
         protected virtual IEnumerator Secure()
         {
+            
             float time = 0.0f;
             Debug.Log("base Secure() started | this is base method from AnimalMotor");
             transform.localScale = Vector3.one;
@@ -56,7 +58,7 @@ namespace Poly {
                 //Debug.Log(time);
                 if (time >= randomSec)
                 {
-                    Debug.Log("Задаем новою точку перемещения");
+                    //Debug.Log("Задаем новою точку перемещения");
                     agent.SetDestination(walkArea.GetWalkPoint());
                     time = 0.0f;
                 }
@@ -64,7 +66,7 @@ namespace Poly {
                     break;
                 yield return new WaitForSeconds(0.1f);
             }
-            Debug.Log("changing condition to alarm");
+            //Debug.Log("changing condition to alarm");
             visibleTarget = fow.visibleTargets[0];
             ChangeCondition(Condition.Alarm, "Secure", "Alarm");
         }

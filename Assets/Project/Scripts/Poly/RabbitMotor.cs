@@ -6,13 +6,11 @@ using Random = UnityEngine.Random;
 
 namespace Poly
 {
-    public class ChickenMotor : AnimalMotor
+    public class RabbitMotor : AnimalMotor
     {
-        [SerializeField] Transform escapePoint;
-
         protected override void Awake()
         {
-
+            
             base.Awake();
             animalType.type = AnimalType.Animal.Rabbit;
             ai.Init("RabbitPoint");
@@ -26,43 +24,28 @@ namespace Poly
         protected override IEnumerator Alarm()
         {
             float time = 0.0f;
-            float escape_time = 0.0f;
             Debug.Log("overrided Alarm() started | this is inherited method from AnimalMotor");
             transform.localScale = Vector3.one;
-            agent.speed = runSpeed;
+            agent.speed = 25.0f;
             float randomSec = Random.Range(0.2f, 0.3f);
             agent.SetDestination(walkArea.GetWalkPoint());
             while (cond == Condition.Alarm)
             {
                 time += Time.deltaTime;
-                escape_time += Time.deltaTime;
-                Debug.Log(escape_time);
+                //Debug.Log(time);
                 if (time >= randomSec)
                 {
                     Debug.Log("Задаем новою точку перемещения");
                     agent.SetDestination(walkArea.GetWalkPoint());
                     time = 0.0f;
                 }
-                if (fow.visibleTargets.Count > 0 && escape_time > 1.0f)
+                if (fow.visibleTargets.Count == 0)
                     break;
                 yield return new WaitForSeconds(0.05f);
             }
-            escape_time = 0.0f;
             Debug.Log("changing condition to alarm");
             visibleTarget = null;
-            ChangeCondition(Condition.Safety, "Alarm", "Safety");
-        }
-        protected override IEnumerator Safety()
-        {
-            Vector3 lastPosition = agent.destination;
-            agent.Warp(escapePoint.position);
-            agent.ResetPath();
-            Debug.Log("Улетаю!");
-            yield return new WaitForSeconds(4.0f);
-            agent.Warp(lastPosition);
-            agent.ResetPath();
-            Debug.Log("Возвращаюсь на исходную позицию");
-            ChangeCondition(Condition.Secure, "Safety", "Secure");
+            ChangeCondition(Condition.Secure, "Alarm", "Secure");
         }
     }
 }

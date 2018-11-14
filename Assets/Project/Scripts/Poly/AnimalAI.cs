@@ -6,32 +6,27 @@ using UnityEngine.AI;
 
 namespace Poly
 {
-    [RequireComponent(typeof(AnimalMotor))]
     public class AnimalAI : MonoBehaviour
     {
         [HideInInspector] public Transform[] saveZones;
         List<Transform> variantsZones = new List<Transform>();
         Transform finalZone;
-
         AreaOfWalk walkArea;
         AnimalType a_type;
-
         public Transform FinalZone { get { return finalZone; } }
-
-
         protected virtual void Awake()
         {
             walkArea = GetComponent<AreaOfWalk>();
-            Init("Hole");
         }
 
-        void Init(string saveZoneTag)
+        public void Init(string saveZoneTag)
         {
             GameObject[] obj = GameObject.FindGameObjectsWithTag(saveZoneTag);
             saveZones = new Transform[obj.Length];
             for (int i = 0; i < saveZones.Length; i++)
             {
                 saveZones[i] = obj[i].transform;
+                //Debug.Log(saveZoneTag +" | " + saveZones[i].name);
             }
         }
         public void FindSaveZone(Vector3 predatorPos)

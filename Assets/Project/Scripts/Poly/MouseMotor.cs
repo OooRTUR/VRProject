@@ -8,6 +8,19 @@ namespace Poly
 {
     public class MouseMotor : AnimalMotor
     {
+        protected override void Awake()
+        {
+            base.Awake();
+            animalType.type = AnimalType.Animal.Mouse;
+            ai.Init("Hole");
+            
+        }
+        protected override void Start()
+        {
+            walkArea.FindAreaCenter();
+            base.Start();
+        }
+
         // состояние опасности
         protected override IEnumerator Alarm()
         {

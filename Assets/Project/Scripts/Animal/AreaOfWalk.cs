@@ -11,10 +11,10 @@ public class AreaOfWalk : MonoBehaviour {
 
 	void Awake () {
 		animalAI = GetComponent<Poly.AnimalAI> ();
-        FindAreaCenter();
+        //FindAreaCenter();
     }
 
-	void FindAreaCenter () {
+	public void FindAreaCenter () {
 		foreach (Transform trans in animalAI.saveZones) {
             //Debug.Log(trans.name);
             //Debug.Log(areaCenter);
