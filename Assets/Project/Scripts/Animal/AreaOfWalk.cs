@@ -16,8 +16,8 @@ public class AreaOfWalk : MonoBehaviour {
 
 	void FindAreaCenter () {
 		foreach (Transform trans in animalAI.saveZones) {
-            Debug.Log(trans.name);
-            Debug.Log(areaCenter);
+            //Debug.Log(trans.name);
+            //Debug.Log(areaCenter);
 			if (areaCenter == null || animalAI.DistanceTo (trans.position) < animalAI.DistanceTo (areaCenter.position))
 				areaCenter = trans;
 		}

@@ -20,14 +20,15 @@ namespace Poly {
         protected AreaOfWalk walkArea;
         protected FieldOfView fow;
         protected AnimalType a_type;
-        AnimalAI ai;
+        protected AnimalAI ai;
+        protected Transform visibleTarget;
+
 
         public enum Condition { Secure, Alarm, Safety}
         public Condition cond;
 
         [SerializeField] protected AnimalType animalType;
         [HideInInspector] public Transform[] saveZones;
-        float timeAfterSpot;
     
         protected virtual void Awake()
         {
@@ -40,89 +41,48 @@ namespace Poly {
         {
             StartCoroutine("Secure");
         }
-        private void Update()
-        {
-            //Debug.Log("is enemy spotted? : " + isEnemySpotted);
-            //CheckPointDestination();
-            //Debug.Log(cond);
-
-
-            if (fow.isEnemySpotted && cond == Condition.Secure)
-            {
-                Debug.Log("changing condition to alarm");
-                cond = Condition.Alarm;
-                StopCoroutine("Secure");
-                StartCoroutine("Alarm");
-            }
-            if(cond == Condition.Alarm)
-            {
-                timeAfterSpot += Time.deltaTime;
-                Debug.Log(timeAfterSpot);
-            }
-        }
-
-
-        void CheckPointDestination()
-        {
-            if (cond == Condition.Alarm && agent.remainingDistance < 0.5f)
-            {
-                agent.Warp(agent.pathEndPosition);
-                agent.ResetPath();
-                //cond = Condition.Secure;
-                StartCoroutine("Secure");
-            }
-        }
-        public void SawPredator(Vector3 runTo)
-        {
-            //cond = Condition.Alarm;
-            //StopCoroutine("Secure");
-            //agent.ResetPath();
-            //agent.SetDestination(runTo);
-        }
         // состояние безопасности, нормальная скорость перемещения
         protected virtual IEnumerator Secure()
         {
-            Debug.Log("base Secure() started | this is base method for all AnimalMotor");
+            float time = 0.0f;
+            Debug.Log("base Secure() started | this is base method from AnimalMotor");
             transform.localScale = Vector3.one;
             agent.speed = walkSpeed;
-            while (true)
+            float randomSec = Random.Range(1.5f, 3.5f);
+            agent.SetDestination(walkArea.GetWalkPoint());
+            while (cond == Condition.Secure)
             {
-                agent.SetDestination(walkArea.GetWalkPoint()); // задать случайную точку перемещения
-                float randomSec = Random.Range(2.5f, 6.5f);
-                yield return new WaitForSeconds(randomSec);
+                time += Time.deltaTime;
+                //Debug.Log(time);
+                if (time >= randomSec)
+                {
+                    Debug.Log("Задаем новою точку перемещения");
+                    agent.SetDestination(walkArea.GetWalkPoint());
+                    time = 0.0f;
+                }
+                if (fow.visibleTargets.Count > 0)
+                    break;
+                yield return new WaitForSeconds(0.1f);
             }
+            Debug.Log("changing condition to alarm");
+            visibleTarget = fow.visibleTargets[0];
+            ChangeCondition(Condition.Alarm, "Secure", "Alarm");
         }
         // состояние опасности
         protected virtual IEnumerator Alarm()
         {
-            //cond = Condition.Alarm;
-            Debug.Log("base Alarm() started | This is hide method for mouse");
-            
-            agent.speed = runSpeed;
-            while (true)
-            {
-                //Debug.Log("is in alarm now");
-                Debug.Log("finalzone: " + ai.FinalZone);
-                agent.SetDestination(walkArea.GetWalkPoint());
-                yield return new WaitForSeconds(0.1f);
-            }
+            yield return null;    
         }
         // состояние защиты
         protected virtual IEnumerator Safety()
         {
-            Debug.Log("base Safety() started | This is hide method for mouse");
-            transform.localScale = Vector3.one * 0.2f;
-            yield return new WaitForSeconds(5);
-            while (cond == Condition.Safety)
-            {
-                if (fow.visibleTargets.Count > 0)
-                    yield return new WaitForSeconds(5);
-                else
-                    break;
-            }
-            //cond = Condition.Secure;
-            //StartCoroutine("Secure");
             yield return null;
+        }
+        protected void ChangeCondition(Condition targetCond, string currentCoroutine, string targetCoroutine)
+        {
+            this.cond = targetCond;
+            StartCoroutine(targetCoroutine);
+            StopCoroutine(currentCoroutine);
         }
 
     }

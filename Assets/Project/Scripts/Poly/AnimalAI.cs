@@ -14,7 +14,6 @@ namespace Poly
         Transform finalZone;
 
         AreaOfWalk walkArea;
-        AnimalMotor motor;
         AnimalType a_type;
 
         public Transform FinalZone { get { return finalZone; } }
@@ -23,7 +22,6 @@ namespace Poly
         protected virtual void Awake()
         {
             walkArea = GetComponent<AreaOfWalk>();
-            motor = GetComponent<AnimalMotor>();
             Init("Hole");
         }
 
@@ -38,21 +36,18 @@ namespace Poly
         }
         public void FindSaveZone(Vector3 predatorPos)
         {
-            if (motor.cond == AnimalMotor.Condition.Secure)
+            variantsZones.Clear();
+            finalZone = null;
+            foreach (Transform zone in saveZones)
             {
-                variantsZones.Clear();
-                finalZone = null;
-                foreach (Transform zone in saveZones)
-                {
-                    if (Vector3.Angle(-DirectionTo(predatorPos), DirectionTo(zone.position)) < 90)
-                        variantsZones.Add(zone);
-                }
-                Transform[] variants = variantsZones.ToArray();
-                if (variants.Length > 1)
-                    ChooseZone(variants);
-                else
-                    ChooseZone(saveZones);
+                if (Vector3.Angle(-DirectionTo(predatorPos), DirectionTo(zone.position)) < 90)
+                    variantsZones.Add(zone);
             }
+            Transform[] variants = variantsZones.ToArray();
+            if (variants.Length > 1)
+                ChooseZone(variants);
+            else
+                ChooseZone(saveZones);
         }
 
         void ChooseZone(Transform[] zones)
@@ -67,7 +62,7 @@ namespace Poly
                 }
             }
             //Debug.Log(finalZone);
-            motor.SawPredator(finalZone.position);
+            //motor.SawPredator(finalZone.position);
             walkArea.areaCenter = finalZone;
         }
 

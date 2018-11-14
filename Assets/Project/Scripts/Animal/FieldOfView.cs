@@ -11,25 +11,18 @@ public class FieldOfView : MonoBehaviour {
 
 	[HideInInspector]public List<Transform> visibleTargets = new List<Transform>();
 
-	Poly.AnimalAI animalAI;
 
-    public bool isEnemySpotted { get { return visibleTargets.Count > 0 ? true : false; } }
+    //public bool isEnemySpotted { get { return visibleTargets.Count > 0 ? true : false; } }
     float spottingTime;
 
 
 	void Awake () {
-		animalAI = GetComponent<Poly.AnimalAI>();
 		StartCoroutine(FindTargetsWithDelay(0.3f));
 	}
 
 	void Update () {
         //Debug.Log(visibleTargets.Count);
         spottingTime += Time.deltaTime;
-        if (isEnemySpotted)
-        {
-            animalAI.FindSaveZone(visibleTargets[0].position);
-            Debug.Log("enemy is spotted");
-        }
 	}
 
 	IEnumerator FindTargetsWithDelay (float delay) {
@@ -40,7 +33,7 @@ public class FieldOfView : MonoBehaviour {
 	}
 
 	void FindVisibleTargets () {
-		//visibleTargets.Clear();
+		visibleTargets.Clear();
 		Collider[] targetsInView = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
 
 		if (targetsInView.Length == 0) visibleTargets.Clear();
