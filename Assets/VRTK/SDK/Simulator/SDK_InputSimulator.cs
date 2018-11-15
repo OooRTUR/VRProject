@@ -74,7 +74,7 @@ namespace VRTK
         public KeyCode distancePickupModifier = KeyCode.LeftControl;
 
         [Header("Movement Key Bindings")]
-
+		public bool isMoveble = true;
         [Tooltip("Key used to move forward.")]
         public KeyCode moveForward = KeyCode.W;
         [Tooltip("Key used to move to the left.")]
@@ -106,8 +106,6 @@ namespace VRTK
 
 		[Header("Animation")]
 		public Animator animator;
-
-		[HideInInspector]public bool isMoveble = true;
 
         #endregion
         #region Private fields
@@ -203,7 +201,8 @@ namespace VRTK
 
         private void Update()
         {
-			animator.SetFloat ("Speed", c_controller.velocity.magnitude);
+			if(animator != null)
+				animator.SetFloat ("Speed", c_controller.velocity.magnitude);
             if (Input.GetKeyDown(toggleControlHints))
             {
                 showControlHints = !showControlHints;
@@ -389,29 +388,20 @@ namespace VRTK
 
         private void UpdatePosition()
         {
+			Vector3 vertical = Vector3.zero;
+			Vector3 horizontal = Vector3.zero;
+			float moveMod = Time.deltaTime * playerMoveMultiplier * sprintMultiplier;
 			if (isMoveble) {
-	            float moveMod = Time.deltaTime * playerMoveMultiplier * sprintMultiplier;
-	            if (Input.GetKey(moveForward))
-	            {
-					c_controller.Move(transform.forward * moveMod);
-	               // transform.Translate(transform.forward * moveMod, Space.World);
-	            }
-	            else if (Input.GetKey(moveBackward))
-	            {
-					c_controller.Move(-transform.forward * moveMod);
-	                //transform.Translate(-transform.forward * moveMod, Space.World);
-	            }
-	            if (Input.GetKey(moveLeft))
-	            {
-					c_controller.Move(-transform.right * moveMod);
-	                //transform.Translate(-transform.right * moveMod, Space.World);
-	            }
-	            else if (Input.GetKey(moveRight))
-	            {
-					c_controller.Move(transform.right * moveMod);
-	                //transform.Translate(transform.right * moveMod, Space.World);
-	            }
+				if (Input.GetKey (moveForward))
+					vertical = transform.forward;
+				else if (Input.GetKey (moveBackward))
+					vertical = -transform.forward;
+				if (Input.GetKey (moveRight))
+					horizontal = transform.right;
+				else if (Input.GetKey (moveLeft))
+					horizontal = -transform.right;
 			}
+			c_controller.Move ((vertical + horizontal) * moveMod);
         }
 
         private void SetHand()

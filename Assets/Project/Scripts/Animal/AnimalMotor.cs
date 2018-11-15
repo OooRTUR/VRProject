@@ -48,7 +48,7 @@ public class AnimalMotor : MonoBehaviour {
 	}
 
 	void CheckPointDestination() {
-		if (cond == Condition.Run && agent.remainingDistance < 0.5f) {
+		if (cond == Condition.Run && agent.remainingDistance < 1) {
 			if (a_type.type == AnimalType.Animal.Mouse) {
 				agent.Warp (agent.pathEndPosition);
 				agent.ResetPath ();

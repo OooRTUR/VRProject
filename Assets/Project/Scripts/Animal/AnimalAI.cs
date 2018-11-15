@@ -34,14 +34,18 @@ public class AnimalAI : MonoBehaviour {
 			variantsZones.Clear();
 			finalZone = null;
 			foreach(Transform zone in saveZones) {
-				if(Vector3.Angle(-DirectionTo(predatorPos), DirectionTo(zone.position)) < 90)
+				if(Vector3.Angle(-DirectionTo(predatorPos), DirectionTo(zone.position)) < 120)
 					variantsZones.Add(zone);
 			}
 			Transform[] variants = variantsZones.ToArray();
-			if (variants.Length > 1)
+			if (variants.Length > 1) {
 				ChooseZone (variants);
-			else
+				Debug.Log ("Бегу к норе из вариантов");
+			} 
+			else {
 				ChooseZone (saveZones);
+				Debug.Log ("Бегу к ближайшей норе");
+			}
 		}
 	}
 
@@ -49,13 +53,15 @@ public class AnimalAI : MonoBehaviour {
 		Transform prevCenter = walkArea.areaCenter;
 		foreach (Transform zone in zones) {
 			if (finalZone == null || DistanceTo (zone.position) < DistanceTo (finalZone.position)) {
-				if(prevCenter != zone)
+				if(prevCenter != zone && a_type.type == AnimalType.Animal.Rabbit)
+					finalZone = zone;
+				if (a_type.type == AnimalType.Animal.Mouse)
 					finalZone = zone;
 			}
 		}
-		Debug.Log (finalZone);
 		motor.SawPredator (finalZone.position);
 		walkArea.areaCenter = finalZone;
+		Debug.Log (finalZone.name);
 	}
 
 	Vector3 DirectionTo (Vector3 position) {

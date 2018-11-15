@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 75adac95d39cdc94e9a09095b02d45bc
-timeCreated: 1542089333
+guid: 27b5a6261891bdc4b8b5259d7fbb6b9b
+timeCreated: 1542178617
 licenseType: Pro
 ModelImporter:
   serializedVersion: 19
@@ -24,12 +24,11 @@ ModelImporter:
     100032: Bone455
     100034: Bone458
     100036: Bone462
-    100038: //RootNode
-    100040: IK Chain020
-    100042: IK Chain021
-    100044: IK Chain022
-    100046: IK Chain023
-    100048: Object012
+    100038: IK Chain020
+    100040: IK Chain021
+    100042: IK Chain022
+    100044: IK Chain023
+    100046: //RootNode
     400000: Bone432
     400002: Bone433
     400004: Bone434
@@ -49,16 +48,13 @@ ModelImporter:
     400032: Bone455
     400034: Bone458
     400036: Bone462
-    400038: //RootNode
-    400040: IK Chain020
-    400042: IK Chain021
-    400044: IK Chain022
-    400046: IK Chain023
-    400048: Object012
-    4300000: Object012
+    400038: IK Chain020
+    400040: IK Chain021
+    400042: IK Chain022
+    400044: IK Chain023
+    400046: //RootNode
     7400000: Take 001
     9500000: //RootNode
-    13700000: Object012
   materials:
     importMaterials: 1
     materialName: 0
@@ -86,7 +82,7 @@ ModelImporter:
       name: Take 001
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 50
+      lastFrame: 40
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -155,15 +151,13 @@ ModelImporter:
         weight: 1
       - path: IK Chain023
         weight: 1
-      - path: Object012
-        weight: 1
       maskType: 3
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.5
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
