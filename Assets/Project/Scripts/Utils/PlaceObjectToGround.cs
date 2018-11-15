@@ -23,12 +23,6 @@ public class PlaceObjectToGround : ScriptableObject {
                 transform.position.y - hit.distance,
                 transform.position.z
                 );
-            //Debug.LogFormat("Объект {0} помещен на землю", transform.name);
-        }
-        else
-        {
-            //Debug.Log("Ground is not hitted");
-           // Debug.DrawRay(transform.position, dir * maxDist, Color.red);
         }
     }
 

@@ -10,8 +10,8 @@ public class MouseLocator : MonoBehaviour {
 	AudioSource s_source;
 
 	void Awake () {
-		mouseTrans = GameObject.FindGameObjectWithTag("Mouse").GetComponent<Transform>();
-		s_source = GetComponent<AudioSource>();
+		//mouseTrans = GameObject.FindGameObjectWithTag("Mouse").GetComponent<Transform>();
+		//s_source = GetComponent<AudioSource>();
 		//s_source.clip = mouseSound;
 	}
 
