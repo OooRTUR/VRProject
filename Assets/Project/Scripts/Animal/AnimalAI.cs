@@ -18,7 +18,7 @@ public class AnimalAI : MonoBehaviour
     [SerializeField]ZonesManager zonesManager;
     public Transform FinalZone { get { return finalZone; } }
 
-    public void FindSaveZone(Vector3 predatorPos)
+    public virtual void FindSaveZone(Vector3 predatorPos)
     {
         variantsZones.Clear();
         finalZone = null;
