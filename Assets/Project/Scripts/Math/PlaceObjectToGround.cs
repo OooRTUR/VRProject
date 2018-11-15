@@ -7,7 +7,7 @@ public class PlaceObjectToGround : ScriptableObject {
 
     Transform transform;
     float maxDist = 55.0f;
-    int layerMask = 1 << 8;
+    int layerMask = 1 << 9;
 
     public void Place(ref GameObject go)
     {

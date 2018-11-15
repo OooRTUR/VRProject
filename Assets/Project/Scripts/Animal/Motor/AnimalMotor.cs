@@ -42,13 +42,13 @@ public class AnimalMotor : MonoBehaviour
     // состояние безопасности, нормальная скорость перемещения
     protected virtual IEnumerator Secure()
     {
-            
         float time = 0.0f;
         Debug.Log("base Secure() started | this is base method from AnimalMotor");
         transform.localScale = Vector3.one;
         agent.speed = walkSpeed;
         float randomSec = Random.Range(1.5f, 3.5f);
         agent.SetDestination(ai.GetWalkPoint());
+		Debug.Log (agent.path.corners.Length);
         while (cond == Condition.Secure)
         {
             time += Time.deltaTime;

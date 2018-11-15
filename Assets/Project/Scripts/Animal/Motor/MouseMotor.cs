@@ -19,7 +19,6 @@ public class MouseMotor : AnimalMotor
         while (cond == Condition.Alarm)
         {
             yield return new WaitForSeconds(0.5f);
-            Debug.Log(agent.remainingDistance);
             //Debug.Log(ai.FinalZone.name);
             if (agent.remainingDistance < 0.5f)
                 break;

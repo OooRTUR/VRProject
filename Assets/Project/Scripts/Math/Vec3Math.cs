@@ -10,7 +10,7 @@ public class Vec3Math : MonoBehaviour {
     [SerializeField] float angle = 45.0f;
     [SerializeField] float dim = 0.1f;
     int graphLength = 50;
-    readonly int limit = 10;
+    readonly int limit = 1;
     [SerializeField] Transform target;
     [SerializeField] GameObject obj1;
     [SerializeField] GameObject obj2;
@@ -56,7 +56,7 @@ public class Vec3Math : MonoBehaviour {
        
         //if (Vector3.Angle(body.right, target.position - body.position) > 90f) side = "left"; else side = "right";
         //angle = angle360(transform.position, target.position, Vector3.right);
-        Debug.Log("angle:" + angle);
+        //Debug.Log("angle:" + angle);
         //angle = transform.rotation.eulerAngles.y + 90.0f;
         //Debug.Log(transform.rotation.eulerAngles.y);
         angle = GetAngle();
