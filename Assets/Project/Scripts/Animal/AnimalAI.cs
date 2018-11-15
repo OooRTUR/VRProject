@@ -1,72 +1,71 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[RequireComponent(typeof(AnimalMotor))]
-public class AnimalAI : MonoBehaviour {
-	
-	[HideInInspector]public Transform[] saveZones;
-	List<Transform> variantsZones = new List<Transform>();
-	Transform finalZone;
+using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
-	AreaOfWalk walkArea;
-	AnimalMotor motor;
-	AnimalType a_type;
+public class AnimalAI : MonoBehaviour
+{
+    [HideInInspector] public Transform[] SaveZones { get { if (zonesManager.saveZones != null) return zonesManager.saveZones; else return null; } }
+    List<Transform> variantsZones = new List<Transform>();
+    Transform finalZone;
 
-	void Awake () {
-		a_type = GetComponent<AnimalType> ();
-		walkArea = GetComponent<AreaOfWalk> ();
-		motor = GetComponent<AnimalMotor>();
-		if(a_type.type == AnimalType.Animal.Mouse)
-			Init ("Hole");
-		if(a_type.type == AnimalType.Animal.Rabbit)
-			Init ("RabbitPoint");
-        if (a_type.type == AnimalType.Animal.Chicken)
-            Init("ChickenPoint");
-	}
+    public float walkRadius;
+    [HideInInspector] public Transform areaCenter;
 
-	void Init (string saveZoneTag) {
-		GameObject[] obj = GameObject.FindGameObjectsWithTag (saveZoneTag);
-		saveZones = new Transform[obj.Length];
-		for (int i = 0; i < saveZones.Length; i++) {
-			saveZones [i] = obj [i].transform;
-		}
-	}
-	public void FindSaveZone (Vector3 predatorPos) {
-		if(motor.cond == AnimalMotor.Condition.Walk) {
-			variantsZones.Clear();
-			finalZone = null;
-			foreach(Transform zone in saveZones) {
-				if(Vector3.Angle(-DirectionTo(predatorPos), DirectionTo(zone.position)) < 90)
-					variantsZones.Add(zone);
-			}
-			Transform[] variants = variantsZones.ToArray();
-			if (variants.Length > 1)
-				ChooseZone (variants);
-			else
-				ChooseZone (saveZones);
-		}
-	}
 
-	void ChooseZone (Transform[] zones) {
-		Transform prevCenter = walkArea.areaCenter;
-		foreach (Transform zone in zones) {
-			if (finalZone == null || DistanceTo (zone.position) < DistanceTo (finalZone.position)) {
-				if(prevCenter != zone)
-					finalZone = zone;
-			}
-		}
-		Debug.Log (finalZone);
-		motor.SawPredator (finalZone.position);
-		walkArea.areaCenter = finalZone;
-	}
+    [SerializeField]ZonesManager zonesManager;
+    public Transform FinalZone { get { return finalZone; } }
 
-	Vector3 DirectionTo (Vector3 position) {
-		Vector3 direction = (position - transform.position).normalized;
-		return direction;
-	}
+    public void FindSaveZone(Vector3 predatorPos)
+    {
+        variantsZones.Clear();
+        finalZone = null;
+        foreach (Transform zone in SaveZones)
+        {
+            if (Vector3.Angle(-Vec3Mathf.DirectionTo(transform.position,predatorPos), Vec3Mathf.DirectionTo(transform.position,zone.position)) < 90)
+                variantsZones.Add(zone);
+        }
+        Transform[] variants = variantsZones.ToArray();
+        if (variants.Length > 1)
+            ChooseZone(variants);
+        else
+            ChooseZone(SaveZones);
+    }
 
-	public float DistanceTo (Vector3 position) {
-		float distance = Vector3.Distance(transform.position, position);
-		return distance;
-	}
+    void ChooseZone(Transform[] zones)
+    {
+        Transform prevCenter = areaCenter;
+        foreach (Transform zone in zones)
+        {
+            if (finalZone == null || Vec3Mathf.DistanceTo(transform.position,zone.position) < Vec3Mathf.DistanceTo(transform.position,finalZone.position))
+            {
+                if (prevCenter != zone)
+                    finalZone = zone;
+            }
+        }
+        //Debug.Log(finalZone);
+        areaCenter = finalZone;
+    }
+
+    public void FindAreaCenter()
+    {
+        foreach (Transform trans in SaveZones)
+        {
+            //Debug.Log(trans.name);
+            //Debug.Log(areaCenter);
+            if (areaCenter == null || Vec3Mathf.DistanceTo(transform.position, trans.position) < Vec3Mathf.DistanceTo(transform.position, areaCenter.position))
+                areaCenter = trans;
+        }
+    }
+
+    public Vector3 GetWalkPoint()
+    {
+        float x = Random.Range(-walkRadius, walkRadius);
+        float z = Random.Range(-walkRadius, walkRadius);
+        Vector3 waypoint = new Vector3(x + areaCenter.position.x, areaCenter.transform.position.y, z + areaCenter.position.z);
+
+        return waypoint;
+    }
 }
