@@ -17,4 +17,13 @@ public class Vec3Mathf
         float distance = Vector3.Distance(point1, point2);
         return distance;
     }
+
+    static public float GetAngle(Transform point1, Transform point2)
+    {
+        Vector3 targetDir = point2.position - point1.position;
+        float angle = Vector3.Angle(targetDir, point1.forward);
+        if (!(Vector3.Angle(point1.right, point2.position - point1.position) > 90f))
+            angle = 360.0f - angle;
+        return angle;
+    }
 }
