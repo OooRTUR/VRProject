@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33347225565069030}
   - component: {fileID: 65810368386548318}
   - component: {fileID: 23610792792633632}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Nose
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,12 +41,10 @@ GameObject:
   - component: {fileID: 65850538892670090}
   - component: {fileID: 23521449278596942}
   - component: {fileID: 195649748052241498}
-  - component: {fileID: 114824984362600194}
   - component: {fileID: 114126930629693150}
-  - component: {fileID: 114206315393452046}
-  - component: {fileID: 114636155972487360}
-  - component: {fileID: 114870484728187808}
-  m_Layer: 10
+  - component: {fileID: 114643838224088718}
+  - component: {fileID: 114519996975497834}
+  m_Layer: 0
   m_Name: Rabbit
   m_TagString: Rabbit
   m_Icon: {fileID: 0}
@@ -64,7 +62,7 @@ GameObject:
   - component: {fileID: 33533730784453096}
   - component: {fileID: 65710180054844600}
   - component: {fileID: 23440828659257678}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82,7 +80,7 @@ GameObject:
   - component: {fileID: 33620200609061792}
   - component: {fileID: 65517478599173284}
   - component: {fileID: 23515402411884156}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,7 +133,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1436009867124934}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 42.50789, y: -2.476, z: -11.614419}
+  m_LocalPosition: {x: -35.1, y: -2.4685054, z: -42}
   m_LocalScale: {x: 1, y: 1.4920512, z: 1}
   m_Children:
   - {fileID: 4466205199495534}
@@ -368,20 +366,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   visibleTargets: []
---- !u!114 &114206315393452046
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1436009867124934}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aabcd516155d9b841a1c8780c21d410b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkRadius: 15
-  areaCenter: {fileID: 0}
---- !u!114 &114636155972487360
+--- !u!114 &114519996975497834
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -392,8 +377,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e06f4e4f4edcaa438fc3df79d5b01c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  saveZones: []
---- !u!114 &114824984362600194
+  walkRadius: 7.06
+  areaCenter: {fileID: 0}
+  zonesManager: {fileID: 0}
+--- !u!114 &114643838224088718
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -401,24 +388,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1436009867124934}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d350fa9d06ab6e444905df8f1f6438d1, type: 3}
+  m_Script: {fileID: 11500000, guid: dbb88b8226d52e6448049ee205579e38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 10
-  runSpeed: 20
   cond: 0
---- !u!114 &114870484728187808
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1436009867124934}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 688676e7903caa842ba50be324c871de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 2
+  animalType:
+    type: 3
+  saveZones: []
 --- !u!195 &195649748052241498
 NavMeshAgent:
   m_ObjectHideFlags: 1

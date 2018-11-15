@@ -77,11 +77,9 @@ GameObject:
   - component: {fileID: 65594389100944764}
   - component: {fileID: 23354079846284786}
   - component: {fileID: 195784847118765194}
-  - component: {fileID: 114250957396804864}
   - component: {fileID: 114460106105356720}
-  - component: {fileID: 114697471533958824}
-  - component: {fileID: 114991182552129968}
-  - component: {fileID: 114570073143252030}
+  - component: {fileID: 114208304855024698}
+  - component: {fileID: 114170395736349320}
   m_Layer: 10
   m_Name: Chicken
   m_TagString: Rabbit
@@ -114,7 +112,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1274493147945620}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -32.5, y: -2.179, z: 21.2}
+  m_LocalPosition: {x: -9.9, y: -2.1788304, z: 47.3}
   m_LocalScale: {x: 0.7483021, y: 1.4920512, z: 1.4180682}
   m_Children:
   - {fileID: 4917562445357836}
@@ -431,7 +429,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114250957396804864
+--- !u!114 &114170395736349320
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -439,12 +437,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 1274493147945620}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d350fa9d06ab6e444905df8f1f6438d1, type: 3}
+  m_Script: {fileID: 11500000, guid: 3e06f4e4f4edcaa438fc3df79d5b01c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 10
-  runSpeed: 20
+  walkRadius: 5.04
+  areaCenter: {fileID: 0}
+  zonesManager: {fileID: 0}
+--- !u!114 &114208304855024698
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1274493147945620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa6458546f40d724795d942366170e17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   cond: 0
+  animalType:
+    type: 2
+  saveZones: []
+  escapePoint: {fileID: 0}
 --- !u!114 &114460106105356720
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -456,52 +470,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a4be578f826950429497cb8ede649bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 3.51
-  viewAngle: 235
+  viewRadius: 9.09
+  viewAngle: 226
   targetMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   obstacleMask:
     serializedVersion: 2
     m_Bits: 512
   visibleTargets: []
---- !u!114 &114570073143252030
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1274493147945620}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 688676e7903caa842ba50be324c871de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 1
---- !u!114 &114697471533958824
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1274493147945620}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aabcd516155d9b841a1c8780c21d410b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkRadius: 19
-  areaCenter: {fileID: 0}
---- !u!114 &114991182552129968
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1274493147945620}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e06f4e4f4edcaa438fc3df79d5b01c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  saveZones: []
 --- !u!195 &195784847118765194
 NavMeshAgent:
   m_ObjectHideFlags: 1

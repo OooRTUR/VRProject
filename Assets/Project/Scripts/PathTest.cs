@@ -9,13 +9,23 @@ public class PathTest : MonoBehaviour {
 	public Transform endTransform;
 	NavMeshPath path;
 
+	LineRenderer line;
+
+	void Awake () {
+		line = GetComponent<LineRenderer> ();
+	}
+
 	void Start () {
 		path = new NavMeshPath ();
 	}
 
 	void Update () {
 		NavMesh.CalculatePath (startTransform.position, endTransform.position, NavMesh.AllAreas, path);
-		for (int i = 0; i < path.corners.Length - 1; i++)
-			Debug.DrawLine (path.corners [i], path.corners [i + 1], Color.red);
+		line.positionCount = path.corners.Length;
+		line.SetPositions (path.corners);
+		for (int i = 0; i < line.positionCount; i++) {
+			Vector3 vectory = new Vector3 (line.GetPosition (i).x, line.GetPosition (i).y + 10, line.GetPosition (i).z);
+			Debug.DrawLine (line.GetPosition (i), vectory);
+		}
 	}
 }

@@ -58,7 +58,7 @@ public class PlaceObjsByCurve : MonoBehaviour {
         {
             GameObject tempObj = Instantiate(obj1,transform);
             tempObj.transform.position = vec3points[i];
-            Debug.Log(transform.name+" | i: "+i+" | " +vec3points[i]);
+            //Debug.Log(transform.name+" | i: "+i+" | " +vec3points[i]);
             
             place.Place(ref tempObj);
 
