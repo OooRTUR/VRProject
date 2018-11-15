@@ -203,7 +203,8 @@ namespace VRTK
 
         private void Update()
         {
-			animator.SetFloat ("Speed", c_controller.velocity.magnitude);
+			if(animator != null)
+				animator.SetFloat ("Speed", c_controller.velocity.magnitude);
 			//Debug.Log (c_controller.velocity.magnitude);
             if (Input.GetKeyDown(toggleControlHints))
             {
@@ -390,29 +391,20 @@ namespace VRTK
 
         private void UpdatePosition()
         {
+			Vector3 vertical = Vector3.zero;
+			Vector3 horizontal = Vector3.zero;
+			float moveMod = Time.deltaTime * playerMoveMultiplier * sprintMultiplier;
 			if (isMoveble) {
-	            float moveMod = Time.deltaTime * playerMoveMultiplier * sprintMultiplier;
 	            if (Input.GetKey(moveForward))
-	            {
-					c_controller.Move(transform.forward * moveMod);
-	               // transform.Translate(transform.forward * moveMod, Space.World);
-	            }
+					vertical = transform.forward;
 	            else if (Input.GetKey(moveBackward))
-	            {
-					c_controller.Move(-transform.forward * moveMod);
-	                //transform.Translate(-transform.forward * moveMod, Space.World);
-	            }
+					vertical = -transform.forward;
 	            if (Input.GetKey(moveLeft))
-	            {
-					c_controller.Move(-transform.right * moveMod);
-	                //transform.Translate(-transform.right * moveMod, Space.World);
-	            }
+					horizontal = -transform.right;
 	            else if (Input.GetKey(moveRight))
-	            {
-					c_controller.Move(transform.right * moveMod);
-	                //transform.Translate(transform.right * moveMod, Space.World);
-	            }
+					horizontal = transform.right;
 			}
+			c_controller.Move ((vertical + horizontal) * moveMod);
         }
 
         private void SetHand()
