@@ -5,63 +5,61 @@ using UnityEngine;
 public class PlaceObjsByCurve : ScriptableObject {
 
     // поля конфигурации
-    [SerializeField] Transform start;
-    [SerializeField] Transform target;
-    [SerializeField] GameObject obj1;
-    [SerializeField] GameObject obj2;
-    [SerializeField] bool DebugMode;
+    
     PlaceObjectToGround place;
 
+    Transform start;
+    Transform target;
 
     Vector3 startPos;
     Vector3 targPos;
     // расчетные поля
-    [SerializeField] float rad = 1.0f;
-    [SerializeField] float dim = 0.1f;
+    float rad = 2.5f;
+    float dim = 2.0f;
     readonly float sqrt2 = 1.141f;
     float angle = 0.0f;
-    int graphLength = 0;
+    float graphLength = 0;
     readonly int limit = 0;
     Vector3[] vec3points;
 
 
-    private void Awake()
+    public void Run(Vector3 start, Vector3 target)
     {
-        startPos = start.position;
-        targPos = target.position;
+        startPos = start;
+        targPos = target;
 
-        graphLength = (int)(Vector3.Distance(startPos, targPos) / rad) - limit;
-        vec3points = new Vector3[graphLength];
+        graphLength = (Vector3.Distance(startPos, targPos) / rad) - limit;
+        //Debug.Log(graphLength);
+        if (graphLength >= 1)
+            vec3points = new Vector3[(int)graphLength];
+        else
+            vec3points = new Vector3[1];
         angle = Vec3Mathf.GetAngle(start, target);
+        Debug.Log(angle);
+        Debug.Log("start: "+start +"angle: "+ target);
         CalcGraph();
     }
 
-    void Start () {
-        PlaceObjByGraph();
-        if (DebugMode)
-            StartCoroutine("DebugLines");
-    }
-	
-
+    
     public IEnumerator DebugLines()
     {
         while (true)
         {
-            angle = Vec3Mathf.GetAngle(start, target);
-            Debug.DrawLine(start.position, new Vector3(start.position.x + 5.0f, start.position.y, start.position.z), Color.red); // x axis
-            Debug.DrawLine(start.position, new Vector3(start.position.x, start.position.y, start.position.z + 5.0f), Color.blue); // z axis
-            Debug.DrawLine(start.position, GetVec3(graphLength), Color.cyan); // rotation vector
+            angle = Vec3Mathf.GetAngle(startPos, targPos);
+            Debug.DrawLine(startPos, new Vector3(startPos.x + 5.0f, startPos.y, startPos.z), Color.red); // x axis
+            Debug.DrawLine(startPos, new Vector3(startPos.x, startPos.y, startPos.z + 5.0f), Color.blue); // z axis
+            Debug.DrawLine(startPos, GetVec3(graphLength), Color.cyan); // rotation vector
             CalcGraph();
             DrawGraph();
             yield return new WaitForSeconds(0.01f);
         }
     }
 
-    void PlaceObjByGraph()
+    public void PlaceObjByGraph(GameObject obj1, GameObject obj2)
     {
-        place = new PlaceObjectToGround();
+        place = ScriptableObject.CreateInstance<PlaceObjectToGround>();
         //Debug.Log("graph length: "+graphLength);
-        for (int i=0; i <graphLength; i++)
+        for (int i=0; i < vec3points.Length; i++)
         {
             GameObject tempObj = Instantiate(obj1, start);
             tempObj.transform.position = vec3points[i];
@@ -69,7 +67,7 @@ public class PlaceObjsByCurve : ScriptableObject {
             
             place.Place(ref tempObj);
 
-            if(i % 4 == 0)
+            if(i % 7 == 0)
             {
                 GameObject tempObj2 = Instantiate(obj2, start);
                 tempObj2.transform.position = vec3points[i];
@@ -84,13 +82,13 @@ public class PlaceObjsByCurve : ScriptableObject {
     Vector3 GetVec3(float mod)
     {
         return new  Vector3(
-            start.position.x + mod * rad * Mathf.Cos(Mathf.Deg2Rad * (angle+90.0f)),
-            start.position.y,
-            start.position.z + mod * rad * Mathf.Sin(Mathf.Deg2Rad * (angle+90.0f)));
+            startPos.x + mod * rad * Mathf.Cos(Mathf.Deg2Rad * (angle+90.0f)),
+            startPos.y,
+            startPos.z + mod * rad * Mathf.Sin(Mathf.Deg2Rad * (angle+90.0f)));
     }
     void DrawGraph()
     {
-        for(int i=0; i < graphLength; i++)
+        for(int i=0; i < vec3points.Length; i++)
         {
             Debug.DrawLine(GetVec3(i), vec3points[i], Color.red);
         }
@@ -98,14 +96,14 @@ public class PlaceObjsByCurve : ScriptableObject {
 
     // расчетные методы
 
-    void CalcGraph()
+    public void CalcGraph()
     {
-        vec3points[0] = new Vector3(start.position.x, start.position.y, start.position.z);
-        for(int i=1; i < graphLength; i++)
+        vec3points[0] = new Vector3(startPos.x, startPos.y, startPos.z);
+        for(int i=1; i < vec3points.Length; i++)
         {
             float dim = Mathf.Sin(Mathf.Rad2Deg * i) * this.dim;
             Vector3 vec3 = CalcVec3(i, 1, dim);
-            vec3points[i] = new Vector3(start.position.x + vec3.x, start.position.y, start.position.z + vec3.z);
+            vec3points[i] = new Vector3(startPos.x + vec3.x, startPos.y, startPos.z + vec3.z);
         }
     }
 
@@ -120,7 +118,7 @@ public class PlaceObjsByCurve : ScriptableObject {
         x = c * Mathf.Cos(Mathf.Deg2Rad*(angle+90.0f) + angle_s * modifier);
         z = c * Mathf.Sin(Mathf.Deg2Rad * (angle+90.0f) + angle_s * modifier);
 
-        return new Vector3(x, start.position.y, z);
+        return new Vector3(x, startPos.y, z);
     }
 
 }

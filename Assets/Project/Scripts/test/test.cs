@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class test : MonoBehaviour {
+public class MyTest : MonoBehaviour {
 
     public Transform target;
     float angle;
