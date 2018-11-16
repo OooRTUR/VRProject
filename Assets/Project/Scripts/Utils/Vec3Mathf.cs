@@ -28,11 +28,10 @@ public class Vec3Mathf
     }
     static public float GetAngle(Vector3 start, Vector3 end)
     {
-        float z;
-        if (start.z < 0.0f) z = -start.z;
-        else z = start.z;
         Vector3 targetDir = end - start;
-        float angle = Vector3.Angle(targetDir, new Vector3(0.0f, 0.0f, z));
+        float angle = Vector3.Angle(targetDir, Vector3.forward);
+        if (!(Vector3.Angle(Vector3.right, end - start) > 90f))
+            angle = 360.0f - angle;
         return angle;
     }
 }

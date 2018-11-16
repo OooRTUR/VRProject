@@ -7,9 +7,8 @@ public class SetTrails : MonoBehaviour {
 
     [SerializeField] GameObject obj1;
     [SerializeField] GameObject obj2;
-    List<float> angles;
 
-    List<PlaceObjsByCurve> placeByCurve;
+    PlaceObjsByCurve placeByCurve;
 	public Transform startTransform;
 	public Transform endTransform;
 	NavMeshPath path;
@@ -23,43 +22,33 @@ public class SetTrails : MonoBehaviour {
     private void Awake()
     {
         path = new NavMeshPath();
-        placeByCurve = new List<PlaceObjsByCurve>();
-        
-        
-
         NavMesh.CalculatePath(startTransform.position, endTransform.position, NavMesh.AllAreas, path);
         pathCorners = new Vector3[path.corners.Length];
         pathCorners = path.corners;
-        
-
         if (debugMode)
         {
-            line = GetComponent<LineRenderer>();
+            if(GetComponent<LineRenderer>()!=null) line = GetComponent<LineRenderer>();
             StartCoroutine("DrawPath");
         }
     }
     private void Start()
     {
-        //Debug.Log(path.corners.Length);
         float uplift = 10.0f;
-        angles = new List<float>();
+        placeByCurve = ScriptableObject.CreateInstance<PlaceObjsByCurve>();
         for (int i = 0; i < path.corners.Length - 1; i++)
         {
             //Debug.Log(i);
             //Debug.Log(pathCorners[i].y + " | " + pathCorners[i+1].y);
-            placeByCurve.Add(ScriptableObject.CreateInstance<PlaceObjsByCurve>());
             Vector3 nullY1 = new Vector3(pathCorners[i].x, 0.0f + uplift, pathCorners[i].z);
             Vector3 nullY2 = new Vector3(pathCorners[i + 1].x, 0.0f + uplift, pathCorners[i + 1].z);
-            placeByCurve[i].Run(
+            placeByCurve.Run(
                 nullY1,
                 nullY2);
-            placeByCurve[i].PlaceObjByGraph(obj1, obj2);
-            StartCoroutine(placeByCurve[i].DebugLines());
+            placeByCurve.PlaceObjByGraph(obj1, obj2);
+            //StartCoroutine(placeByCurve.DebugLines());
         }
 
     }
-
-
     IEnumerator DrawPath()
     {
         while (true)
@@ -79,11 +68,6 @@ public class SetTrails : MonoBehaviour {
                 //Vector3 z = new Vector3(0.0f, 0.0f, line.GetPosition(i).z); // draw z
                 //Debug.DrawLine(line.GetPosition(i), z, Color.blue);
             }
-            //for (int i=0; i < pathCorners.Length; i++)
-            //{
-            //    Vector3 vec3 = new Vector3(pathCorners[i].x, pathCorners[i].y + 10.0f, pathCorners[i].z);
-            //    Debug.DrawLine(pathCorners[i], vec3);
-            //}
             yield return new WaitForSeconds(0.01f);
         }
     }
