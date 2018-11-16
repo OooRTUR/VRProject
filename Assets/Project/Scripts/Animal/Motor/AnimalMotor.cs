@@ -52,6 +52,7 @@ public class AnimalMotor : MonoBehaviour
         while (cond == Condition.Secure)
         {
             time += Time.deltaTime;
+            Debug.Log(time);
             //Debug.Log(time);
             if (time >= randomSec)
             {
