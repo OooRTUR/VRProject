@@ -39,12 +39,14 @@ public class ChickenMotor : AnimalMotor
     protected override IEnumerator Safety()
     {
         Vector3 lastPosition = agent.destination;
-        agent.Warp(escapePoint.position);
+		agent.Warp (escapePoint.position);
+        //agent.Warp(escapePoint.position);
         agent.ResetPath();
         //Debug.Log("Улетаю!");
 
         yield return new WaitForSeconds(4.0f);
-        agent.Warp(lastPosition);
+		agent.Warp (lastPosition);
+        //agent.Warp(lastPosition);
         agent.ResetPath();
         //Debug.Log("Возвращаюсь на исходную позицию");
         ChangeCondition(Condition.Secure, "Safety", "Secure");
