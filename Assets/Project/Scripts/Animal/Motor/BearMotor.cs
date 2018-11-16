@@ -28,7 +28,7 @@ public class BearMotor : AnimalMotor {
             yield return new WaitForSeconds(2.0f);
             agent.speed = Random.Range(3.0f, 6.0f);
             agent.ResetPath();
-            agent.SetDestination(ai.GetWalkPoint(visibleTarget.position));
+            agent.SetDestination(ai.GetWalkPoint(visibleTarget.position, 10.0f));
             Debug.Log("Прогулка до точки: " + agent.destination);
             yield return new WaitForSeconds(4.0f);
         }

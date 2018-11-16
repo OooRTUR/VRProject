@@ -9,7 +9,7 @@ public class FieldOfView : MonoBehaviour {
 	public LayerMask targetMask;
 	public LayerMask obstacleMask;
 
-	[HideInInspector]public List<Transform> visibleTargets = new List<Transform>();
+	public List<Transform> visibleTargets = new List<Transform>();
 
 
     //public bool isEnemySpotted { get { return visibleTargets.Count > 0 ? true : false; } }
@@ -33,7 +33,6 @@ public class FieldOfView : MonoBehaviour {
 	}
 
 	void FindVisibleTargets () {
-		visibleTargets.Clear();
 		Collider[] targetsInView = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
 
 		if (targetsInView.Length == 0) visibleTargets.Clear();
@@ -43,10 +42,10 @@ public class FieldOfView : MonoBehaviour {
 			CharacterController c_controller = targetsInView[i].GetComponent<CharacterController>();
 			float dist = Vector3.Distance(transform.position,target.position);
 			if (Vector3.Angle(transform.forward, dir) < viewAngle / 2 || c_controller.velocity.magnitude > 6f) {
-				if (!Physics.Raycast(transform.position,dir,dist,obstacleMask)) // && !visibleTargets.Exists(trans => trans == target) - доп проверка на всякий
-                    visibleTargets.Add(target);
-				else
+				if (Physics.Raycast(transform.position,dir,dist,obstacleMask) && visibleTargets.Contains(target)) // && !visibleTargets.Exists(trans => trans == target) - доп проверка на всякий
 					visibleTargets.Remove(target);
+				else if(!Physics.Raycast(transform.position, dir, dist, obstacleMask) && !visibleTargets.Contains(target))
+					visibleTargets.Add(target);
 			}
 		}
 	}

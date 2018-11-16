@@ -108,7 +108,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e06f4e4f4edcaa438fc3df79d5b01c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkRadius: 9.44
+  walkWidth: 0
+  walkLength: 0
   areaCenter: {fileID: 0}
   zonesManager: {fileID: 0}
 --- !u!114 &114582511600738650
