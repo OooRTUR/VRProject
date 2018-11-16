@@ -11,7 +11,7 @@ public class MouseMotor : AnimalMotor
     protected override IEnumerator Alarm()
     {
         //cond = Condition.Alarm;
-        Debug.Log("override Alarm() started | this is inherited method from AnimalMotor");
+        //Debug.Log("override Alarm() started | this is inherited method from AnimalMotor");
         agent.speed = runSpeed;
         ai.FindSaveZone(visibleTarget.position);
         agent.ResetPath();
@@ -32,7 +32,7 @@ public class MouseMotor : AnimalMotor
     protected override IEnumerator Safety()
     {
         float delay = 3.5f;
-        Debug.Log("override Safety() started | this is inherited method from AnimalMotor");
+        //Debug.Log("override Safety() started | this is inherited method from AnimalMotor");
         transform.localScale = Vector3.one * 0.2f;
         yield return new WaitForSeconds(delay);
         while (cond == Condition.Safety)

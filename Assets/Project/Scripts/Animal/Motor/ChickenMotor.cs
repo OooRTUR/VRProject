@@ -12,7 +12,7 @@ public class ChickenMotor : AnimalMotor
     {
         float time = 0.0f;
         float escape_time = 0.0f;
-        Debug.Log("overrided Alarm() started | this is inherited method from AnimalMotor");
+        //Debug.Log("overrided Alarm() started | this is inherited method from AnimalMotor");
         transform.localScale = Vector3.one;
         agent.speed = runSpeed;
         float randomSec = Random.Range(0.2f, 0.3f);
@@ -21,10 +21,9 @@ public class ChickenMotor : AnimalMotor
         {
             time += Time.deltaTime;
             escape_time += Time.deltaTime;
-            Debug.Log(escape_time);
             if (time >= randomSec)
             {
-                Debug.Log("Задаем новою точку перемещения");
+                //Debug.Log("Задаем новою точку перемещения");
                 agent.SetDestination(ai.GetWalkPoint());
                 time = 0.0f;
             }
@@ -33,7 +32,7 @@ public class ChickenMotor : AnimalMotor
             yield return new WaitForSeconds(0.05f);
         }
         escape_time = 0.0f;
-        Debug.Log("changing condition to alarm");
+        //Debug.Log("changing condition to alarm");
         visibleTarget = null;
         ChangeCondition(Condition.Safety, "Alarm", "Safety");
     }
@@ -42,12 +41,12 @@ public class ChickenMotor : AnimalMotor
         Vector3 lastPosition = agent.destination;
         agent.Warp(escapePoint.position);
         agent.ResetPath();
-        Debug.Log("Улетаю!");
+        //Debug.Log("Улетаю!");
 
         yield return new WaitForSeconds(4.0f);
         agent.Warp(lastPosition);
         agent.ResetPath();
-        Debug.Log("Возвращаюсь на исходную позицию");
+        //Debug.Log("Возвращаюсь на исходную позицию");
         ChangeCondition(Condition.Secure, "Safety", "Secure");
     }
 }

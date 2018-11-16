@@ -48,7 +48,6 @@ public class AnimalMotor : MonoBehaviour
         agent.speed = walkSpeed;
         float randomSec = Random.Range(1.5f, 3.5f);
         agent.SetDestination(ai.GetWalkPoint());
-		Debug.Log (agent.path.corners.Length);
         while (cond == Condition.Secure)
         {
             time += Time.deltaTime;

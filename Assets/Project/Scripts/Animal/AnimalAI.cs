@@ -11,8 +11,11 @@ public class AnimalAI : MonoBehaviour
     List<Transform> variantsZones = new List<Transform>();
     Transform finalZone;
 
-    public float walkRadius;
-    [HideInInspector] public Transform areaCenter;
+    public float walkWidth;
+	public float walkLength;
+	[HideInInspector]
+    public Transform areaCenter;
+	public WalkBounds walkBounds;
 
 
     [SerializeField]ZonesManager zonesManager;
@@ -24,7 +27,7 @@ public class AnimalAI : MonoBehaviour
         finalZone = null;
         foreach (Transform zone in SaveZones)
         {
-            if (Vector3.Angle(-Vec3Mathf.DirectionTo(transform.position,predatorPos), Vec3Mathf.DirectionTo(transform.position,zone.position)) < 90)
+            if (Vector3.Angle(-Vec3Mathf.DirectionTo(transform.position,predatorPos), Vec3Mathf.DirectionTo(transform.position,zone.position)) < 130)
                 variantsZones.Add(zone);
         }
         Transform[] variants = variantsZones.ToArray();
@@ -36,17 +39,14 @@ public class AnimalAI : MonoBehaviour
 
     void ChooseZone(Transform[] zones)
     {
-        Transform prevCenter = areaCenter;
         foreach (Transform zone in zones)
         {
             if (finalZone == null || Vec3Mathf.DistanceTo(transform.position,zone.position) < Vec3Mathf.DistanceTo(transform.position,finalZone.position))
-            {
-                if (prevCenter != zone)
                     finalZone = zone;
-            }
         }
         //Debug.Log(finalZone);
         areaCenter = finalZone;
+		walkBounds.SetBounds (walkWidth, walkLength, areaCenter.position);
     }
 
     public void FindAreaCenter()
@@ -58,14 +58,29 @@ public class AnimalAI : MonoBehaviour
             if (areaCenter == null || Vec3Mathf.DistanceTo(transform.position, trans.position) < Vec3Mathf.DistanceTo(transform.position, areaCenter.position))
                 areaCenter = trans;
         }
+		walkBounds.SetBounds (walkWidth, walkLength, areaCenter.position);
     }
 
     public Vector3 GetWalkPoint()
     {
-        float x = Random.Range(-walkRadius, walkRadius);
-        float z = Random.Range(-walkRadius, walkRadius);
-        Vector3 waypoint = new Vector3(x + areaCenter.position.x, areaCenter.transform.position.y, z + areaCenter.position.z);
+		float x = Random.Range(walkBounds.bounds.min.x, walkBounds.bounds.max.x);
+		float z = Random.Range(walkBounds.bounds.min.z, walkBounds.bounds.max.z);
+		Vector3 waypoint = new Vector3(x, walkBounds.bounds.center.y, z);
 
         return waypoint;
     }
+		
+	public struct WalkBounds {
+		public Bounds bounds;
+		public Vector3 topRight;
+		public Vector3 bottomLeft;
+
+		public void SetBounds (float walkWidth, float walkLenght, Vector3 center) {
+			Vector3 size = new Vector3 (walkWidth, 0, walkLenght);
+			bounds = new Bounds(center,size);
+			bottomLeft = new Vector3 (bounds.min.x, bounds.center.y, bounds.min.y);
+			topRight = new Vector3 (bounds.max.x, bounds.center.y, bounds.max.y);
+			//bounds.SetMinMax (bottomLeft, topRight);
+		}
+	}
 }
