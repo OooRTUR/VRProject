@@ -35,8 +35,8 @@ public class PlaceObjsByCurve : ScriptableObject {
         else
             vec3points = new Vector3[1];
         angle = Vec3Mathf.GetAngle(start, target);
-        Debug.Log(angle);
-        Debug.Log("start: "+start +"angle: "+ target);
+        //Debug.Log(angle);
+        //Debug.Log("start: "+start +"angle: "+ target);
         CalcGraph();
     }
 

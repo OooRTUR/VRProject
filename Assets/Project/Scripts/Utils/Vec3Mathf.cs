@@ -18,11 +18,11 @@ public class Vec3Mathf
         return distance;
     }
 
-    static public float GetAngle(Transform transform, Transform target)
+    static public float GetAngle(Transform start, Transform end)
     {
-        Vector3 targetDir = target.position - transform.position;
-        float angle = Vector3.Angle(targetDir, transform.forward);
-        if (!(Vector3.Angle(transform.right, target.position - transform.position) > 90f))
+        Vector3 targetDir = end.position - start.position;
+        float angle = Vector3.Angle(targetDir, start.forward);
+        if (!(Vector3.Angle(start.right, end.position - start.position) > 90f))
             angle = 360.0f - angle;
         return angle;
     }

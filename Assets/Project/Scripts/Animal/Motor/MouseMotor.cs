@@ -42,6 +42,7 @@ public class MouseMotor : AnimalMotor
             else
                 break;
         }
+        transform.localScale = Vector3.one;
         ChangeCondition(Condition.Secure, "Safety", "Secure");
 
     }

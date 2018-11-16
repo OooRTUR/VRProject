@@ -21,7 +21,7 @@ public class ChickenMotor : AnimalMotor
         {
             time += Time.deltaTime;
             escape_time += Time.deltaTime;
-            Debug.Log(escape_time);
+            //Debug.Log(escape_time);
             if (time >= randomSec)
             {
                 Debug.Log("Задаем новою точку перемещения");

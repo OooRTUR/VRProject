@@ -22,9 +22,9 @@ public class AnimalMotor : MonoBehaviour
 
 
     public enum Condition { Secure, Alarm, Safety}
-    public Condition cond;
+    [HideInInspector] public Condition cond;
 
-    [SerializeField] protected AnimalType animalType;
+    [HideInInspector] protected AnimalType animalType;
     [HideInInspector] public Transform[] saveZones;
     
     protected virtual void Awake()
@@ -44,7 +44,7 @@ public class AnimalMotor : MonoBehaviour
     {
         float time = 0.0f;
         //Debug.Log("base Secure() started | this is base method from AnimalMotor");
-        transform.localScale = Vector3.one;
+        
         agent.speed = walkSpeed;
         float randomSec = Random.Range(1.5f, 3.5f);
         agent.SetDestination(ai.GetWalkPoint());

@@ -53,8 +53,6 @@ public class AnimalAI : MonoBehaviour
     {
         foreach (Transform trans in SaveZones)
         {
-            //Debug.Log(trans.name);
-            //Debug.Log(areaCenter);
             if (areaCenter == null || Vec3Mathf.DistanceTo(transform.position, trans.position) < Vec3Mathf.DistanceTo(transform.position, areaCenter.position))
                 areaCenter = trans;
         }
@@ -67,5 +65,16 @@ public class AnimalAI : MonoBehaviour
         Vector3 waypoint = new Vector3(x + areaCenter.position.x, areaCenter.transform.position.y, z + areaCenter.position.z);
 
         return waypoint;
+    }
+    public Vector3 GetWalkPoint(Vector3 pos) {
+        float x = Random.Range(-walkRadius, walkRadius);
+        float z = Random.Range(-walkRadius, walkRadius);
+        Vector3 waypoint = new Vector3(pos.x + x, pos.y, pos.z + z);
+        return waypoint;
+    }
+
+    public virtual void GetVictim( Vector3 victimPos)
+    {
+
     }
 }

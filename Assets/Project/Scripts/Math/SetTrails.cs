@@ -12,11 +12,8 @@ public class SetTrails : MonoBehaviour {
 	public Transform startTransform;
 	public Transform endTransform;
 	NavMeshPath path;
-
     Vector3[] pathCorners;
-
 	LineRenderer line;
-
     [SerializeField]bool debugMode;
 
     private void Awake()

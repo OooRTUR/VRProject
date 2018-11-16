@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PredatorAI : AnimalAI {
 
-    public override void FindSaveZone(Vector3 predatorPos)
+    public override void GetVictim(Vector3 victimPos)
     {
-        base.FindSaveZone(predatorPos);
+
     }
 }
