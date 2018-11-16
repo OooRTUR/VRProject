@@ -34,4 +34,19 @@ public class Vec3Mathf
             angle = 360.0f - angle;
         return angle;
     }
+
+    static public Vector3 GetReverseDir(Vector3 start, Vector3 end, float length=1)
+    {
+        float angle = Vec3Mathf.GetAngle(end, start);
+        float dirX = start.x + Mathf.Cos((angle + 90.0f) * Mathf.Deg2Rad) * length;
+        float dirZ = start.z + Mathf.Sin((angle + 90.0f) * Mathf.Deg2Rad) * length;
+        return new Vector3(dirX, start.y, dirZ);
+    }
+    static public Vector3 GetReverseDir(Vector3 start, Vector3 end, float length = 1, float alpha = 15)
+    {
+        float angle = Vec3Mathf.GetAngle(end, start);
+        float dirX = start.x + Mathf.Cos((angle + 90.0f + alpha) * Mathf.Deg2Rad) * length;
+        float dirZ = start.z + Mathf.Sin((angle + 90.0f + alpha) * Mathf.Deg2Rad) * length;
+        return new Vector3(dirX, start.y, dirZ);
+    }
 }
