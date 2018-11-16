@@ -67,7 +67,7 @@ public class PlaceObjsByCurve : ScriptableObject {
             
             place.Place(ref tempObj);
 
-            if(i % 7 == 0)
+            if(i % 10 == 0 & i!=0)
             {
                 GameObject tempObj2 = Instantiate(obj2, start);
                 tempObj2.transform.position = vec3points[i];

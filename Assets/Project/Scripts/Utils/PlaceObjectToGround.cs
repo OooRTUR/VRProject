@@ -12,7 +12,7 @@ public class PlaceObjectToGround : ScriptableObject {
     public void Place(ref GameObject go)
     {
         transform = go.transform;
-        Vector3 dir = transform.TransformDirection(Vector3.down);
+        Vector3 dir = Vector3.down;
         RaycastHit hit;
         if (Physics.Raycast(transform.position, dir, out hit, maxDist, groundMask))
         {
@@ -20,7 +20,7 @@ public class PlaceObjectToGround : ScriptableObject {
             //Debug.DrawRay(transform.position, dir * hit.distance, Color.green);
             transform.position = new Vector3(
                 transform.position.x,
-                transform.position.y - hit.distance,
+                transform.position.y - hit.distance + 0.05f,
                 transform.position.z
                 );
         }

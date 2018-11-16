@@ -16,24 +16,47 @@ public class BearMotor : AnimalMotor {
             yield return new WaitForSeconds(0.1f);
         }
         agent.ResetPath();
-        Debug.Log("Остновка погони");
+        Debug.Log("Остновка погони, переход в поиск цели");
         ChangeCondition(Condition.Safety, "Alarm", "Safety");
     }
 
     protected override IEnumerator Safety()
     {
-        
-        for (int i = 0; i < Random.Range(2, 4); i++)
-        {
-            yield return new WaitForSeconds(2.0f);
-            agent.speed = Random.Range(3.0f, 6.0f);
-            agent.ResetPath();
-            agent.SetDestination(ai.GetWalkPoint(visibleTarget.position, 10.0f));
-            Debug.Log("Прогулка до точки: " + agent.destination);
-            yield return new WaitForSeconds(4.0f);
-        }
+        float newPointTimer = 0.0f;
+        float searchTimer = 0.0f;
+        yield return new WaitForSeconds(2.0f);
+        agent.speed = Random.Range(3.0f, 6.0f);
         agent.ResetPath();
-        Debug.Log("Остановка поиска цели");
-        ChangeCondition(Condition.Secure, "Safety", "Secure");
+        agent.SetDestination(ai.GetWalkPoint(visibleTarget.position, 10.0f));
+        Debug.Log("Поиск цели в точке: " + agent.destination);
+        while (true)
+        {
+            newPointTimer += Time.deltaTime;
+            searchTimer += Time.deltaTime;
+            Debug.Log(searchTimer);
+            if (newPointTimer > 1.5f)
+            {
+                agent.speed = Random.Range(3.0f, 6.0f);
+                agent.ResetPath();
+                agent.SetDestination(ai.GetWalkPoint(visibleTarget.position, 10.0f));
+                Debug.Log("Прогулка до точки: " + agent.destination);
+                newPointTimer = 0.0f;
+            }
+            if(searchTimer > 5.0f && fow.visibleTargets.Count < 1)
+            {
+                agent.ResetPath();
+                Debug.Log("Остановка поиска цели");
+                ChangeCondition(Condition.Secure, "Safety", "Secure");
+            }
+            else if(searchTimer < 5.0f && fow.visibleTargets.Count > 0)
+            {
+                agent.ResetPath();
+                Debug.Log("Возвращение в погоню");
+                ChangeCondition(Condition.Alarm, "Safety", "Alarm");
+            }
+
+            yield return new WaitForSeconds(0.1f);
+        }
+        
     }
 }

@@ -13,23 +13,28 @@ public class ChickenMotor : AnimalMotor
         float time = 0.0f;
         float escape_time = 0.0f;
         Debug.Log("overrided Alarm() started | this is inherited method from AnimalMotor");
-        transform.localScale = Vector3.one;
-        agent.speed = runSpeed;
+        //transform.localScale = Vector3.one;
+        agent.speed = runSpeed /3 * 2;
         float randomSec = Random.Range(0.2f, 0.3f);
-        agent.SetDestination(ai.GetWalkPoint());
+        agent.ResetPath();
+        agent.SetDestination(Vec3Mathf.GetReverseDir(transform.position, visibleTarget.position, 20.0f));
         while (cond == Condition.Alarm)
         {
             time += Time.deltaTime;
             escape_time += Time.deltaTime;
-            //Debug.Log(escape_time);
             if (time >= randomSec)
             {
                 Debug.Log("Задаем новою точку перемещения");
-                agent.SetDestination(ai.GetWalkPoint());
+                agent.ResetPath();
+                agent.SetDestination(Vec3Mathf.GetReverseDir(transform.position, visibleTarget.position, 20.0f, 15));
                 time = 0.0f;
             }
             if (fow.visibleTargets.Count > 0 && escape_time > 1.0f)
                 break;
+            if(fow.visibleTargets.Count < 1 && escape_time > 1.0f)
+            {
+                ChangeCondition(Condition.Secure, "Alarm", "Secure");
+            }
             yield return new WaitForSeconds(0.05f);
         }
         escape_time = 0.0f;

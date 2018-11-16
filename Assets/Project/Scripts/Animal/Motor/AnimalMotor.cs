@@ -22,7 +22,8 @@ public class AnimalMotor : MonoBehaviour
 
 
     public enum Condition { Secure, Alarm, Safety}
-    [HideInInspector] public Condition cond;
+    [SerializeField] public Condition cond;
+
 
     [HideInInspector] protected AnimalType animalType;
     [HideInInspector] public Transform[] saveZones;
@@ -52,7 +53,7 @@ public class AnimalMotor : MonoBehaviour
         while (cond == Condition.Secure)
         {
             time += Time.deltaTime;
-            Debug.Log(time);
+            //Debug.Log(time);
             //Debug.Log(time);
             if (time >= randomSec)
             {
